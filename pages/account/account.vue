@@ -34,25 +34,23 @@
 
         <view class="main">
             <view class="info">
-                <view class="item"><text>33</text>获赞</view>
-                <view class="item"><text>11</text>评论</view>
-                <view class="item"><text>5</text>发文</view>
+                <view class="item">设置</view>
             </view>
 
             <view class="list">
                 <view class="group">
                     <view class="item">
-                        <view class="left"><text class="iconfont icon-a-24-bianji"></text><text class="text">我的长文</text>
+                        <view class="left"><text class="iconfont icon-a-24-bianji"></text><text class="text">激活订阅</text>
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
                     <view class="item">
                         <view class="left"><text class="iconfont icon-a-106-xihuan"></text><text
-                                class="text">我的点赞</text></view>
+                                class="text">语言选择</text></view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
                     <view class="item">
-                        <view class="left"><text class="iconfont icon-a-21-xiugai"></text><text class="text">评论过的</text>
+                        <view class="left"><text class="iconfont icon-a-21-xiugai"></text><text class="text">用户反馈</text>
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
@@ -60,12 +58,13 @@
 
                 <view class="group">
                     <view class="item">
-                        <view class="left"><text class="iconfont icon-a-32-wenjian"></text><text class="text">关于</text>
+                        <view class="left"><text class="iconfont icon-a-32-wenjian"></text><text
+                                class="text">Twitter</text>
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
                     <view class="item">
-                        <view class="left"><text class="iconfont icon-a-5-xinxi"></text><text class="text">意见反馈</text>
+                        <view class="left"><text class="iconfont icon-a-5-xinxi"></text><text class="text">关于我们</text>
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
