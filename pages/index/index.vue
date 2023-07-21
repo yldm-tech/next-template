@@ -36,8 +36,9 @@
         </view>
 
         <view class="charts-box">
-            <qiun-data-charts type="line" :opts="opts" :chartData="chartData" />
+            <qiun-data-charts type="ring" :opts="ringOpts" :chartData="ringChartData" />
         </view>
+
 
     </view>
 </template>
@@ -54,6 +55,7 @@
                     name: '全部'
                 }],
                 chartData: {},
+                ringChartData: {},
                 opts: {
                     padding: [15, 10, 0, 15],
                     dataLabel: false,
@@ -79,15 +81,100 @@
                             linearType: "custom"
                         }
                     }
+                },
+                ringOpts: {
+                    rotate: false,
+                    rotateLock: false,
+                    color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272", "#FC8452", "#9A60B4",
+                        "#ea7ccc"
+                    ],
+                    padding: [5, 5, 5, 5],
+                    dataLabel: false,
+                    enableScroll: false,
+                    legend: {
+                        show: false,
+                        position: "right",
+                        lineHeight: 25
+                    },
+                    title: {
+                        name: "消费总额",
+                        fontSize: 15,
+                        color: "#666666"
+                    },
+                    subtitle: {
+                        name: "21K",
+                        fontSize: 25,
+                        color: "#7cb5ec"
+                    },
+                    extra: {
+                        ring: {
+                            ringWidth: 60,
+                            activeOpacity: 0.5,
+                            activeRadius: 10,
+                            offsetAngle: 0,
+                            labelWidth: 15,
+                            border: true,
+                            borderWidth: 3,
+                            borderColor: "#FFFFFF",
+                            linearType: "custom"
+                        }
+                    }
                 }
             }
         },
         onReady() {
             this.getServerData();
+            this.getRingServerData();
         },
         methods: {
             click(item) {
                 console.log('item', item);
+            },
+            getRingServerData() {
+                setTimeout(() => {
+                    let res = {
+                        series: [{
+                            data: [{
+                                "name": "1月",
+                                "value": 50
+                            }, {
+                                "name": "2月",
+                                "value": 30
+                            }, {
+                                "name": "3月",
+                                "value": 20
+                            }, {
+                                "name": "4月",
+                                "value": 18
+                            }, {
+                                "name": "5月",
+                                "value": 8
+                            }, {
+                                "name": "6月",
+                                "value": 12
+                            }, {
+                                "name": "7月",
+                                "value": 50
+                            }, {
+                                "name": "8月",
+                                "value": 30
+                            }, {
+                                "name": "9月",
+                                "value": 20
+                            }, {
+                                "name": "10月",
+                                "value": 18
+                            }, {
+                                "name": "11月",
+                                "value": 8
+                            }, {
+                                "name": "12月",
+                                "value": 12
+                            }, ]
+                        }]
+                    };
+                    this.ringChartData = JSON.parse(JSON.stringify(res));
+                }, 500);
             },
             getServerData() {
                 //模拟从服务器获取数据时的延时
