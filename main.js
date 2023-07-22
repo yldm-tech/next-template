@@ -4,12 +4,17 @@ import App from './App'
 import Vue from 'vue'
 import './uni.promisify.adaptor'
 import uView from '@/uni_modules/uview-ui'
+import store from './store'
 Vue.use(uView)
 Vue.config.productionTip = false
 App.mpType = 'app'
+const env = process.env.NODE_ENV === 'production' ? require('prod.env') : require('dev.env');
+Vue.prototype.$env = env;
+
 
 const app = new Vue({
-    ...App
+    ...App,
+    store
 })
 app.$mount()
 // #endif

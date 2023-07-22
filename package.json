@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^10.1.0",
-    "vconsole": "^3.15.1"
+    "vconsole": "^3.15.1",
+    "vuex": "^4.1.0",
+    "vuex-persistedstate": "^4.1.0"
   }
 }

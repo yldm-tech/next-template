@@ -4,12 +4,12 @@
             <view class="group">
                 <view class="userinfo" @click="goLogin">
                     <view class="pic">
-                        <image src="../../static/images/user-default.jpg" mode="aspectFill"></image>
+                        <image :src="user.picture || '../../static/images/user-default.jpg'" mode="aspectFill"></image>
                     </view>
-                    <view class="text" v-if="true">
-                        <view class="nickname">匿名</view>
+                    <view class="text" v-if="user.id">
+                        <view class="nickname">{{user.name || "匿名用户"}}</view>
                         <view class="year">
-                            <uni-dateformat :date="new Date() - 360000"
+                            <uni-dateformat :date="user.createdAt"
                                 :threshold="[3600,99*365*24*60*60*1000]"></uni-dateformat>
                             注册
                         </view>
@@ -26,7 +26,7 @@
             </view>
 
             <view class="bg">
-                <image src="../../static/images/user-default.jpg" mode="aspectFill"></image>
+                <image :src="user.picture || '../../static/images/user-default.jpg'" mode="aspectFill"></image>
             </view>
         </view>
 
@@ -90,6 +90,14 @@
             return {
 
             };
+        },
+        computed: {
+            count() {
+                return this.$store.state.count
+            },
+            user() {
+                return this.$store.state.user
+            }
         },
         methods: {
             goLogin() {

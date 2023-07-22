@@ -1,19 +1,11 @@
 <template>
     <view class="root">
         <view class="login">
-            <u-button type="primary" @click="googleLogin"> google登陆</u-button>
+            <u-button type="primary" @click="handleLineLogin"> line登陆</u-button>
 
-            <view v-if="loginInfo">
-                <image :src="loginInfo.headimgurl" mode="aspectFill"></image>
-                <text>{{loginInfo.nickname}}</text>
-                <text>{{loginInfo.unionid}}</text>
-                <text>{{loginInfo.openid}}</text>
-                <text>{{loginInfo.email}}</text>
-                <text>{{loginInfo.openId}}</text>
-                <image :src="loginInfo.avatarUrl" mode="aspectFill"></image>
-            </view>
-            <view v-else>
-                暂无数据
+            <view>
+                <view>数量：{{count }}</view>
+                <button @click="addCount">增加</button>
             </view>
         </view>
     </view>
@@ -23,30 +15,61 @@
     export default {
         data() {
             return {
+                line: null,
+                verify: null,
                 loginInfo: {}
             }
         },
-        methods: {
-            googleLogin() {
-                uni.login({
-                    provider: 'google',
-                    success: function(loginRes) {
-                        // 登录成功
-                        uni.getUserInfo({
-                            provider: 'google',
-                            success: function(info) {
-                                console.log(info.userInfo);
-                                this.loginInfo = info.userInfo;
-                            }
-                        })
-                    },
-                    fail: function(err) {
-                        // 登录授权失败  
-                        // err.code是错误码
-                        this.loginInfo = JSON.stringify(err)
-                    }
-                });
+        computed: {
+            count() {
+                return this.$store.state.count
             }
+        },
+        async onLoad(e) {
+            this.line = e.line;
+            this.verify = e.verify;
+            if (this.line && this.verify) {
+                console.log(`用户己经登陆line,获取用户数据`);
+                const res = await uni.request({
+                    url: `${this.$env.BASE_API}/user`,
+                    data: {
+                        line: this.line,
+                        verify: this.verify
+                    }
+                })
+
+                const user = res.data.data;
+                console.log(res)
+                if (user) {
+                    this.$store.commit('updateUser', user);
+                    uni.reLaunch({
+                        url: `/pages/account/account?line=${this.line}&verify=${this.verify}`
+                    })
+                }
+            }
+        },
+        methods: {
+            addCount() {
+                console.log(this.$env.BASE_API);
+                this.$store.commit('add', 5)
+            },
+            async handleLineLogin() {
+                console.log(`用户开始line登陆`);
+                let response_type = 'code';
+                let client_id = 2000200684
+                let redirect_uri = `${this.$env.BASE_API}/user/line/callback`;
+                let state = '12345abcde';
+                let scope = 'profile%20openid';
+                let nonce = '09876xyz';
+
+                window.location.href = 'https://access.line.me/oauth2/v2.1/authorize?response_type=' +
+                    response_type +
+                    '&client_id=' + client_id +
+                    '&redirect_uri=' + redirect_uri +
+                    '&state=' + state +
+                    '&scope=' + scope +
+                    '&nonce=' + nonce;
+            },
         }
     }
 </script>

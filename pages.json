@@ -46,7 +46,7 @@
         // "navigationStyle": "custom",
         "navigationBarTextStyle": "black",
         "navigationBarTitleText": "My ETC",
-        "navigationBarBackgroundColor": "white",
+        "navigationBarBackgroundColor": "#fff",
         "backgroundColor": "#F8F8F8"
     },
     "uniIdRouter": {},
