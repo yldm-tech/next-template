@@ -52,11 +52,12 @@
             addCount() {
                 console.log(this.$env.BASE_API);
                 this.$store.commit('add', 5)
+                this.$env.LINE_CLIENT_ID;
             },
             async handleLineLogin() {
                 console.log(`用户开始line登陆`);
                 let response_type = 'code';
-                let client_id = 2000200684
+                let client_id = this.$env.LINE_CLIENT_ID;
                 let redirect_uri = `${this.$env.BASE_API}/user/line/callback`;
                 let state = '12345abcde';
                 let scope = 'profile%20openid';
