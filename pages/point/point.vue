@@ -1,6 +1,6 @@
 <template>
     <view class="root">
-        <view class="item" v-for="item in 6">
+        <view class="item" :key="index" v-for="(item,index) in 6">
             <view class="left">
                 <view class="logo">
                     <image src="../../static/logo.png" mode="aspectFill"></image>

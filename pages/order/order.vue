@@ -14,12 +14,12 @@
                      "></u-tabs>
         </view>
 
-        <view class="items" v-for="item in 10">
+        <view class="items" :key="index" v-for="(item,index) in 10">
             <view class="date">
                 10月30日
             </view>
             <view class="item-container">
-                <view class="item-content" v-for="item in 3">
+                <view class="item-content" :key="index" v-for="(item,index) in 3">
                     <view class="left">
                         <image class="icon" src="../../static/images/in.png">
                         </image>
