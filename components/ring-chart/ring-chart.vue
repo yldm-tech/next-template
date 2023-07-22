@@ -1,6 +1,11 @@
 <template>
     <view class="charts-box">
-        <qiun-data-charts type="ring" :opts="ringOpts" :chartData="chartData" />
+        <view class="loading">
+            <u-skeleton rows="6" :loading="!chartData.series" title animate>
+                <qiun-data-charts type="ring" :opts="ringOpts" :chartData="chartData" />
+            </u-skeleton>
+        </view>
+
     </view>
 </template>
 

@@ -101,7 +101,7 @@
                         }]
                     };
                     this.ringChartData = JSON.parse(JSON.stringify(res));
-                }, 500);
+                }, 5000);
             },
             getServerData() {
                 //模拟从服务器获取数据时的延时
@@ -121,7 +121,7 @@
                         }]
                     };
                     this.chartData = JSON.parse(JSON.stringify(res));
-                }, 500);
+                }, 3000);
             },
         }
     }

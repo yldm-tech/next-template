@@ -1,6 +1,10 @@
 <template>
     <view class="charts-box">
-        <qiun-data-charts :ontouch="true" type="column" :opts="opts" :chartData="chartData" />
+        <view class="loading">
+            <u-skeleton rows="6" :loading="!chartData.series" title animate>
+                <qiun-data-charts :ontouch="true" type="column" :opts="opts" :chartData="chartData" />
+            </u-skeleton>
+        </view>
     </view>
 </template>
 
