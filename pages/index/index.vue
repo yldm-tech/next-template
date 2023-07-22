@@ -1,15 +1,12 @@
 <template>
     <view class="root">
         <view class="tabs">
-            <u-tabs :list="tabs" @click="click" lineWidth="40" lineHeight="3" lineColor="#7C37EF" :activeStyle="{
-                        color: '#303133',
-                        fontWeight: 'bold',
-                        transform: 'scale(1.05)'
-                    }" :inactiveStyle="{
+            <u-tabs :list="tabs" @click="click" lineWidth="100" lineHeight="3" lineColor="#7C37EF" :activeStyle="{
+                        color: '#303133', fontWeight: 'bold' , transform: 'scale(1.05)' }" :inactiveStyle="{
                         color: '#606266',
                         transform: 'scale(1)'
                     }" itemStyle="
-                     padding:8px;
+                     padding:8px 40px;
                      height: 34px;
                      "></u-tabs>
         </view>
@@ -28,17 +25,10 @@
                     <text class="summary-amount">743笔</text>
                 </view>
             </view>
-
         </view>
 
-        <view class="charts-box">
-            <qiun-data-charts type="line" :opts="opts" :chartData="chartData" />
-        </view>
-
-        <view class="charts-box">
-            <qiun-data-charts type="ring" :opts="ringOpts" :chartData="ringChartData" />
-        </view>
-
+        <column-chart :chartData="chartData"></column-chart>
+        <ring-chart :chartData="ringChartData"></ring-chart>
 
     </view>
 </template>
@@ -56,76 +46,13 @@
                 }],
                 chartData: {},
                 ringChartData: {},
-                opts: {
-                    padding: [15, 10, 0, 15],
-                    dataLabel: false,
-                    dataPointShape: true,
-                    enableScroll: false,
-                    legend: {},
-                    xAxis: {
-                        disableGrid: true
-                    },
-                    yAxis: {
-                        gridType: "dash",
-                        dashLength: 2,
-                        data: [{
-                            min: 0,
-                            max: 30
-                        }]
-                    },
-                    extra: {
-                        line: {
-                            type: "curve",
-                            width: 2,
-                            activeType: "hollow",
-                            linearType: "custom"
-                        }
-                    }
-                },
-                ringOpts: {
-                    rotate: false,
-                    rotateLock: false,
-                    color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272", "#FC8452", "#9A60B4",
-                        "#ea7ccc"
-                    ],
-                    padding: [5, 5, 5, 5],
-                    dataLabel: false,
-                    enableScroll: false,
-                    legend: {
-                        show: false,
-                        position: "right",
-                        lineHeight: 25
-                    },
-                    title: {
-                        name: "消费总额",
-                        fontSize: 15,
-                        color: "#666666"
-                    },
-                    subtitle: {
-                        name: "21K",
-                        fontSize: 25,
-                        color: "#7cb5ec"
-                    },
-                    extra: {
-                        ring: {
-                            ringWidth: 60,
-                            activeOpacity: 0.5,
-                            activeRadius: 10,
-                            offsetAngle: 0,
-                            labelWidth: 15,
-                            border: true,
-                            borderWidth: 3,
-                            borderColor: "#FFFFFF",
-                            linearType: "custom"
-                        }
-                    }
-                }
             }
         },
         onReady() {
             this.getServerData();
             this.getRingServerData();
         },
+
         methods: {
             click(item) {
                 console.log('item', item);
@@ -181,28 +108,16 @@
                 setTimeout(() => {
                     //模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
                     let res = {
-                        categories: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+                        categories: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
+                            "14",
+                            "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26",
+                            "27", "28", "29", "30"
+                        ],
                         series: [{
-                            name: "支出",
-                            linearColor: [
-                                [
-                                    0,
-                                    "#FAC858"
-                                ],
-                                [
-                                    0.33,
-                                    "#FFC371"
-                                ],
-                                [
-                                    0.66,
-                                    "#FFC2B2"
-                                ],
-                                [
-                                    1,
-                                    "#FA7D8D"
-                                ]
-                            ],
-                            data: [9, 30, 6, 10, 8, 10, 20, 30, 6, 10, 8, 10]
+                            name: "成交量A",
+                            data: [20, 30, 25, 55, 30, 130, 20, 30, 25, 55, 30, 130, 20, 30, 25, 55,
+                                30, 130, 20, 30, 25, 55, 30, 130, 25, 55, 30, 130, 55, 30
+                            ]
                         }]
                     };
                     this.chartData = JSON.parse(JSON.stringify(res));
@@ -263,10 +178,5 @@
 
 
 
-        .charts-box {
-            margin: 15rpx;
-            padding: 30rpx;
-            background-color: white;
-        }
     }
 </style>
