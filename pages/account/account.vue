@@ -209,7 +209,7 @@
                         justify-content: space-between;
                         align-items: center;
                         padding: 25rpx 0;
-                        font-size: 36rpx;
+                        font-size: 28rpx;
                         color: #555;
                         border-bottom: 1rpx solid #f8f8f8;
 
