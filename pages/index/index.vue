@@ -18,7 +18,7 @@
             <view class="summary">
                 <view class="money-container">
                     <text class="summary-title">本年总支出</text>
-                    <text class="summary-amount">1235025JPY</text>
+                    <text class="summary-amount">1235025 JPY</text>
                 </view>
                 <view class="total-container">
                     <text class="summary-title">本年累计笔数</text>
@@ -28,7 +28,9 @@
         </view>
 
         <column-chart :chartData="chartData"></column-chart>
-        <ring-chart :chartData="ringChartData"></ring-chart>
+        <ring-chart :chartData="ringChartData">
+        </ring-chart>
+
 
     </view>
 </template>
@@ -45,12 +47,14 @@
                     name: '全部'
                 }],
                 chartData: {},
+                barChartData: {},
                 ringChartData: {},
             }
         },
         onReady() {
             this.getServerData();
             this.getRingServerData();
+            this.getBarServerData();
         },
 
         methods: {
@@ -101,7 +105,7 @@
                         }]
                     };
                     this.ringChartData = JSON.parse(JSON.stringify(res));
-                }, 5000);
+                }, 1000);
             },
             getServerData() {
                 //模拟从服务器获取数据时的延时
@@ -121,7 +125,21 @@
                         }]
                     };
                     this.chartData = JSON.parse(JSON.stringify(res));
-                }, 3000);
+                }, 1000);
+            },
+            getBarServerData() {
+                //模拟从服务器获取数据时的延时
+                setTimeout(() => {
+                    //模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
+                    let res = {
+                        categories: ["2018", "2019", "2020", "2021", "2022", "2023"],
+                        series: [{
+                            name: "完成量",
+                            data: [18, 27, 21, 24, 6, 28]
+                        }]
+                    };
+                    this.barChartData = JSON.parse(JSON.stringify(res));
+                }, 500);
             },
         }
     }

@@ -1,10 +1,11 @@
 <template>
     <view class="charts-box">
-        <view class="loading">
-            <u-skeleton rows="6" :loading="!chartData.series" title animate>
-                <qiun-data-charts :ontouch="true" type="column" :opts="opts" :chartData="chartData" />
-            </u-skeleton>
+        <view class="header">
+            金额统计
         </view>
+        <u-skeleton rows="6" :loading="!chartData.series" title animate>
+            <qiun-data-charts :ontouch="true" type="column" :opts="opts" :chartData="chartData" />
+        </u-skeleton>
     </view>
 </template>
 
@@ -28,7 +29,6 @@
                     xAxis: {
                         disableGrid: true,
                         itemCount: 6,
-                        enableScroll: true,
                     },
                     yAxis: {
                         data: [{
@@ -84,5 +84,11 @@
         margin: 15rpx;
         padding: 30rpx;
         background-color: white;
+
+        .header {
+            font-size: 35rpx;
+            margin-bottom: 30rpx;
+            font-weight: bold;
+        }
     }
 </style>

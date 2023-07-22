@@ -3,7 +3,7 @@
         {
             "path": "pages/index/index",
             "style": {
-                "navigationBarTitleText": "首页"
+                "navigationBarTitleText": "My ETC"
             }
         }, {
             "path": "pages/account/account",
@@ -29,24 +29,24 @@
         }, {
             "path": "pages/order/order",
             "style": {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "账单",
                 "enablePullDownRefresh": false
             }
 
         }, {
             "path": "pages/point/point",
             "style": {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "积分",
                 "enablePullDownRefresh": false
             }
 
         }
     ],
     "globalStyle": {
-        "navigationStyle": "custom",
+        // "navigationStyle": "custom",
         "navigationBarTextStyle": "black",
         "navigationBarTitleText": "My ETC",
-        "navigationBarBackgroundColor": "#F8F8F8",
+        "navigationBarBackgroundColor": "white",
         "backgroundColor": "#F8F8F8"
     },
     "uniIdRouter": {},

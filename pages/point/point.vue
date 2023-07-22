@@ -1,20 +1,18 @@
 <template>
     <view class="root">
-        <view class="item" :key="index" v-for="(item,index) in 6">
+        <view class="item" :key="index" v-for="(item,index) in list">
             <view class="left">
                 <view class="logo">
-                    <image src="../../static/logo.png" mode="aspectFill"></image>
+                    <image :src="item.image" mode="aspectFit"></image>
                 </view>
-                <view class="title">
-                    NEXCO东日本
-                </view>
+
             </view>
             <view class="right">
                 <view class="name">
                     当前积分
                 </view>
                 <view class="point">
-                    30
+                    {{item.point}}
                 </view>
 
 
@@ -27,7 +25,37 @@
     export default {
         data() {
             return {
-
+                list: [{
+                        image: '../../static/images/nexco.png',
+                        name: "東日本高速",
+                        point: 33
+                    }, {
+                        image: '../../static/images/nagoya.png',
+                        name: "名古屋高速",
+                        point: 3333
+                    }, {
+                        image: '../../static/images/aichi.png',
+                        name: "愛知高速",
+                        point: 0
+                    }, {
+                        image: '../../static/images/koube.png',
+                        name: "神戸高速",
+                        point: 50
+                    }, {
+                        image: '../../static/images/honyon.png',
+                        name: "本四高速",
+                        point: 24
+                    },
+                    {
+                        image: '../../static/images/hirojima.png',
+                        name: "広島高速",
+                        point: 220
+                    }, {
+                        image: '../../static/images/fokukita.png',
+                        name: "福岡北九州高速",
+                        point: 220
+                    },
+                ]
             }
         },
         methods: {
@@ -39,7 +67,6 @@
 <style lang="scss" scoped>
     .root {
         background-color: #f9f9f9;
-        height: 92vh;
         overflow-y: hidden;
 
         .item {
@@ -48,7 +75,7 @@
             background-color: white;
             display: flex;
             justify-content: space-between;
-            height: 120rpx;
+            height: 115rpx;
             align-items: center;
 
             .left {
@@ -58,7 +85,7 @@
 
                 image {
                     margin-right: 30rpx;
-                    width: 80rpx;
+                    width: 300rpx;
                     height: 80rpx;
                 }
 
