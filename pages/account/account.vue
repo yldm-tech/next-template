@@ -2,7 +2,7 @@
     <view class="user">
         <view class="top">
             <view class="group">
-                <view class="userinfo">
+                <view class="userinfo" @click="goLogin">
                     <view class="pic">
                         <image src="../../static/images/user-default.jpg" mode="aspectFill"></image>
                     </view>
@@ -90,6 +90,13 @@
             return {
 
             };
+        },
+        methods: {
+            goLogin() {
+                uni.navigateTo({
+                    url: "/pages/account/login"
+                })
+            }
         }
     }
 </script>

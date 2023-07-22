@@ -2,3 +2,5 @@
 uniCloud*
 .DS_Store
 unpackage
+node_modules
+yarn.lock
