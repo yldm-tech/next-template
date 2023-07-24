@@ -15,8 +15,7 @@
     export default {
         data() {
             return {
-                line: null,
-                verify: null,
+                token: null,
                 loginInfo: {}
             }
         },
@@ -26,31 +25,29 @@
             }
         },
         async onLoad(e) {
-            this.line = e.line;
-            this.verify = e.verify;
-            if (this.line && this.verify) {
+            this.token = e.token;
+            if (this.token) {
                 console.log(`用户己经登陆line,获取用户数据`);
                 const res = await uni.request({
-                    url: `${this.$env.BASE_API}/user`,
-                    data: {
-                        line: this.line,
-                        verify: this.verify
+                    url: `${this.$env.BASE_URL}/user/info`,
+                    header: {
+                        "x-auth-token": this.token
                     }
                 })
 
                 const user = res.data.data;
+                user.token = this.token;
                 console.log(res)
                 if (user) {
                     this.$store.commit('updateUser', user);
                     uni.reLaunch({
-                        url: `/pages/account/account?line=${this.line}&verify=${this.verify}`
+                        url: `/pages/account/account?token=${this.token}`
                     })
                 }
             }
         },
         methods: {
             addCount() {
-                console.log(this.$env.BASE_API);
                 this.$store.commit('add', 5)
                 this.$env.LINE_CLIENT_ID;
             },
@@ -58,7 +55,7 @@
                 console.log(`用户开始line登陆`);
                 let response_type = 'code';
                 let client_id = this.$env.LINE_CLIENT_ID;
-                let redirect_uri = `${this.$env.BASE_API}/user/line/callback`;
+                let redirect_uri = `${this.$env.BASE_URL}/user/line/callback`;
                 let state = '12345abcde';
                 let scope = 'profile%20openid';
                 let nonce = '09876xyz';

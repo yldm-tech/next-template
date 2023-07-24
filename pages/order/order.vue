@@ -14,36 +14,64 @@
                      "></u-tabs>
         </view>
 
-        <view class="items" :key="index" v-for="(item,index) in 10">
+        <view class="loading" v-if="!etcData">
+            <u-skeleton rows="30" :loading="!etcData" title animate>
+            </u-skeleton>
+        </view>
+
+        <view v-else-if="noData" class="items">
+            暂无数据
+        </view>
+
+        <view v-else class="items" :key="index" v-for="(etc,index) in etcData">
             <view class="date">
-                10月30日
+                {{etc[0].entryMonth}}月{{etc[0].entryDay}}日
             </view>
             <view class="item-container">
-                <view class="item-content" :key="index" v-for="(item,index) in 3">
-                    <view class="left">
-                        <image class="icon" src="../../static/images/in.png">
-                        </image>
-                        <text class="title">
-                            王子北
-                        </text>
-                        <text class="date">
-                            Enter・12:35
-                        </text>
+                <view class="item-content" :key="index" v-for="(item,index) in etc">
+                    <view class="item-in">
+                        <view class="left">
+                            <image class="icon" src="../../static/images/in.png">
+                            </image>
+                            Entry
+                            <text class="date">
+                                {{item.entryTime}}
+                            </text>
+                            <text class="title">
+                                {{item.entry}}
+                            </text>
+                        </view>
+
                     </view>
 
-                    <view class="right">
+                    <view class="item-out">
+                        <view class="left">
+                            <image class="icon" src="../../static/images/out.png">
+                            </image>
+                            Exit
+                            <text class="date">
+                                {{item.exitTime}}
+                            </text>
+                            <text class="title">
+                                {{item.exit}}
+                            </text>
+                        </view>
+                    </view>
+
+                    <view class="item-amount">
                         <text class="amount">
-                            ¥ 1000
+                            价格：¥ {{item.totalPrice}}
                         </text>
                     </view>
                 </view>
-                <view class="item-footer">
+
+                <!--   <view class="item-footer">
                     <view class="left">
                         <text>合计 </text>
                         <text class="title">Total price</text>
                     </view>
                     <text>¥ 640</text>
-                </view>
+                </view> -->
             </view>
 
         </view>
@@ -58,18 +86,59 @@
         data() {
             return {
                 tabs: [{
+                    name: '2023年',
+                }, {
                     name: '2022年',
                 }, {
-                    name: '2021年',
-                }, {
-                    name: '2020年'
+                    name: '2021年'
                 }],
+                etcData: null
+            }
+        },
+        onLoad() {
+            this.getData()
+        },
+        computed: {
+            token() {
+                return this.$store.state.user.token
+            },
+            noData() {
+                console.log(this.etcData);
+                console.log(Object.keys(this.etcData).length === 0)
+                return this.etcData && Object.keys(this.etcData).length === 0
             }
         },
         methods: {
             click(item) {
-                console.log('item', item);
+                this.getData(item.name.replace('年', ''))
             },
+            async getData(year) {
+                const res = await uni.request({
+                    url: `${this.$env.BASE_URL}/etc`,
+                    data: {
+                        year: year || '2023'
+                    },
+                    header: {
+                        'x-auth-token': this.token
+                    }
+                })
+
+                if (res.data.data.data) {
+                    const etcData = res.data.data.data.reduce((acc, curr) => {
+                        const date = curr.entryDate;
+                        if (!acc[date]) {
+                            acc[date] = [];
+                        }
+                        acc[date].push(curr);
+                        return acc;
+                    }, {});
+
+                    this.etcData = etcData;
+                } else {
+                    this.etcData = [];
+                }
+                console.log(this.etcData);
+            }
         }
     }
 </script>
@@ -96,39 +165,96 @@
 
             .item-content {
                 display: flex;
-                align-items: center;
-                flex-direction: row;
-                justify-content: space-between;
-                border-bottom: 1rpx solid #f6f6f6f;
-                height: 60rpx;
-                line-height: 60rpx;
+                flex-direction: column;
 
-                .left {
-                    text {
-                        margin-right: 30rpx;
-                    }
+                .item-in {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    border-bottom: 1rpx solid #f6f6f6f;
+                    height: 60rpx;
+                    line-height: 60rpx;
 
-                    image {
-                        width: 32rpx;
-                        height: 32rpx;
-                    }
+                    .left {
+                        min-width: 300rpx;
 
-                    .title {
-                        margin-left: 20rpx;
-                        font-size: 28rpx;
-                        font-weight: bold;
-                    }
+                        text {
+                            margin-right: 30rpx;
+                        }
 
-                    .date {
-                        color: #999;
-                        font-size: 24rpx;
+                        image {
+                            padding-right: 20rpx;
+                            width: 32rpx;
+                            height: 32rpx;
+                        }
+
+                        .title {
+                            margin-left: 20rpx;
+                            font-size: 28rpx;
+                            font-weight: 500;
+                        }
+
+                        .date {
+                            padding-left: 20rpx;
+                            color: #999;
+                            font-size: 24rpx;
+                        }
                     }
                 }
 
-                .right {
+                .item-out {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    border-bottom: 1rpx solid #f6f6f6f;
+                    height: 60rpx;
+                    line-height: 60rpx;
+
+                    .left {
+                        min-width: 300rpx;
+
+                        text {
+                            margin-right: 30rpx;
+                        }
+
+                        image {
+                            padding-right: 20rpx;
+                            width: 32rpx;
+                            height: 32rpx;
+                        }
+
+                        .title {
+                            margin-left: 20rpx;
+                            font-size: 28rpx;
+                            font-weight: 500;
+                        }
+
+                        .date {
+                            color: #999;
+                            font-size: 24rpx;
+                            padding-left: 40rpx;
+                        }
+                    }
+
+                    .right {
+                        text {
+                            font-size: 28rpx;
+                            font-weight: bold;
+                        }
+                    }
+                }
+
+                .item-amount {
+                    text-align: right;
+                    padding-bottom: 20rpx;
+                    border-bottom: 1rpx dotted #999;
+                    margin-bottom: 50rpx;
+
                     text {
+                        font-weight: 500;
                         font-size: 28rpx;
-                        font-weight: bold;
                     }
                 }
             }

@@ -15,7 +15,7 @@
         }, {
             "path": "pages/account/login",
             "style": {
-                "navigationBarTitleText": "google登陆",
+                "navigationBarTitleText": "登陆",
                 "enablePullDownRefresh": false
             }
 
