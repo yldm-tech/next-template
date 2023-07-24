@@ -92,10 +92,17 @@
                 }, {
                     name: '2021年'
                 }],
+                pageSize: 20,
+                currentPage: 1,
+                currentYear: '2023',
                 etcData: null
             }
         },
         onLoad() {
+            this.getData()
+        },
+        onReachBottom() {
+            this.currentPage += 1
             this.getData()
         },
         computed: {
@@ -103,41 +110,55 @@
                 return this.$store.state.user.token
             },
             noData() {
-                console.log(this.etcData);
-                console.log(Object.keys(this.etcData).length === 0)
-                return this.etcData && Object.keys(this.etcData).length === 0
+                return this.etcData && this.etcData.length === 0
             }
         },
         methods: {
             click(item) {
-                this.getData(item.name.replace('年', ''))
+                // 点击后重置所有内容并获取数据
+                this.etcData = null;
+                this.currentPage = 1;
+                const year = item.name.replace('年', '');
+                this.currentYear = year
+                this.getData(year)
             },
-            async getData(year) {
+            async getData() {
                 const res = await uni.request({
                     url: `${this.$env.BASE_URL}/etc`,
                     data: {
-                        year: year || '2023'
+                        year: this.currentYear,
+                        pageNo: this.currentPage,
+                        pageSize: this.pageSize
                     },
                     header: {
                         'x-auth-token': this.token
                     }
                 })
-
-                if (res.data.data.data) {
-                    const etcData = res.data.data.data.reduce((acc, curr) => {
+                const dataList = res.data.data.data;
+                if (dataList && dataList.length > 0) {
+                    const etcData = Object.values(dataList.reduce((acc, curr) => {
                         const date = curr.entryDate;
                         if (!acc[date]) {
                             acc[date] = [];
                         }
                         acc[date].push(curr);
                         return acc;
-                    }, {});
+                    }, {}));
 
-                    this.etcData = etcData;
+                    if (this.currentPage > 1 && this.etcData) {
+                        this.etcData = this.etcData.concat(etcData);
+                    } else {
+                        this.etcData = etcData
+                    }
                 } else {
-                    this.etcData = [];
+                    if (this.currentPage > 1) {
+                        uni.showToast({
+                            title: 'no more data'
+                        })
+                    } else {
+                        this.etcData = [];
+                    }
                 }
-                console.log(this.etcData);
             }
         }
     }
