@@ -124,8 +124,9 @@
                 return !!etcUsername
             },
             pointBind() {
-                const pointUserame = this.$store.state.user.pointUsername
-                return !!pointUserame
+                console.log(this.$store.state.user);
+                const pointUsername = this.$store.state.user.pointUsername
+                return !!pointUsername
             },
             etcBindShow() {
                 return this.etcBind ? '己绑定' : '未绑定'

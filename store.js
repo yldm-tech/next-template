@@ -26,7 +26,87 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        // 这里放触发 mutations 的方法
+        add({
+            commit
+        }, count) {
+            commit('add', count)
+        },
+        lineLogin({
+            commit
+        }, params) {
+            const {
+                clientId,
+                baseUrl
+            } = params;
+            let response_type = 'code';
+            let redirectUri = `${baseUrl}/user/line/callback`;
+            let state = '12345abcde';
+            let scope = 'profile%20openid';
+            let nonce = '09876xyz';
+
+            window.location.href = 'https://access.line.me/oauth2/v2.1/authorize?response_type=' +
+                response_type +
+                '&client_id=' + clientId +
+                '&redirect_uri=' + redirectUri +
+                '&state=' + state +
+                '&scope=' + scope +
+                '&nonce=' + nonce;
+        },
+        async bindEtc({
+            commit
+        }, params) {
+            const {
+                baseUrl,
+                token,
+                model
+            } = params
+            return await uni.request({
+                method: 'POST',
+                url: `${baseUrl}/user/etc`,
+                data: model,
+                header: {
+                    "x-auth-token": token
+                }
+            })
+        },
+        async bindPoint({
+            commit
+        }, params) {
+            const {
+                baseUrl,
+                token,
+                model
+            } = params
+            return await uni.request({
+                method: 'POST',
+                url: `${baseUrl}/user/point`,
+                data: model,
+                header: {
+                    "x-auth-token": token
+                }
+            })
+        },
+        async getUserInfo({
+            commit
+        }, params) {
+            const {
+                baseUrl,
+                token
+            } = params;
+            console.log(`用户己经登陆line,获取用户数据`);
+            const res = await uni.request({
+                url: `${baseUrl}/user/info`,
+                header: {
+                    "x-auth-token": token
+                }
+            })
+            const user = res.data.data;
+            user.token = token;
+            if (user) {
+                commit('updateUser', user);
+            }
+            return user;
+        }
     }
 })
 

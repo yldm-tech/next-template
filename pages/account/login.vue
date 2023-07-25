@@ -12,6 +12,9 @@
 </template>
 
 <script>
+    import {
+        mapActions
+    } from 'vuex';
     export default {
         data() {
             return {
@@ -25,48 +28,31 @@
             }
         },
         async onLoad(e) {
-            this.token = e.token;
-            if (this.token) {
-                console.log(`用户己经登陆line,获取用户数据`);
-                const res = await uni.request({
-                    url: `${this.$env.BASE_URL}/user/info`,
-                    header: {
-                        "x-auth-token": this.token
-                    }
+            if (e.token) {
+                const baseUrl = this.$env.BASE_URL;
+                const userInfo = await this.getUserInfo({
+                    baseUrl: baseUrl,
+                    token: e.token
                 })
-
-                const user = res.data.data;
-                user.token = this.token;
-                console.log(res)
-                if (user) {
-                    this.$store.commit('updateUser', user);
-                    uni.reLaunch({
-                        url: `/pages/account/account?token=${this.token}`
-                    })
-                }
+                uni.reLaunch({
+                    url: `/pages/account/account?token=${e.token}`
+                })
             }
         },
         methods: {
+            ...mapActions(['getUserInfo', 'add', 'lineLogin']),
             addCount() {
-                this.$store.commit('add', 5)
-                this.$env.LINE_CLIENT_ID;
+                this.add(5);
+
             },
             async handleLineLogin() {
                 console.log(`用户开始line登陆`);
-                let response_type = 'code';
-                let client_id = this.$env.LINE_CLIENT_ID;
-                let redirect_uri = `${this.$env.BASE_URL}/user/line/callback`;
-                let state = '12345abcde';
-                let scope = 'profile%20openid';
-                let nonce = '09876xyz';
-
-                window.location.href = 'https://access.line.me/oauth2/v2.1/authorize?response_type=' +
-                    response_type +
-                    '&client_id=' + client_id +
-                    '&redirect_uri=' + redirect_uri +
-                    '&state=' + state +
-                    '&scope=' + scope +
-                    '&nonce=' + nonce;
+                const clientId = this.$env.LINE_CLIENT_ID;
+                const baseUrl = this.$env.BASE_URL;
+                this.lineLogin({
+                    clientId,
+                    baseUrl
+                })
             },
         }
     }

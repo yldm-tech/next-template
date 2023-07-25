@@ -19,7 +19,7 @@
             </u-skeleton>
         </view>
 
-        <view v-else-if="noData" class="items">
+        <view v-else-if="noData" class="items" style="height: 100vh;">
             暂无数据
         </view>
 
