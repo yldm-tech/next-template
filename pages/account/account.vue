@@ -37,9 +37,6 @@
 
                 </view>
 
-                <view class="more">
-                    <text class="iconfont icon-a-10-you"></text>
-                </view>
             </view>
 
             <view class="bg">
@@ -97,7 +94,7 @@
                     </view>
                 </view>
 
-                <view class="group">
+                <view class="group" @click="logout">
                     <view class="item">
                         <view class="left"><text class="iconfont icon-a-73-tuichu"></text><text class="text">退出登录</text>
                         </view>
@@ -139,10 +136,16 @@
             },
             user() {
                 return this.$store.state.user
+            },
+            hasLogin() {
+                return !!this.user.id
             }
         },
         methods: {
             goLogin() {
+                if (this.hasLogin) {
+                    return;
+                }
                 uni.navigateTo({
                     url: "/pages/account/login"
                 })
@@ -157,6 +160,30 @@
                 uni.navigateTo({
                     url: "/pages/account/bind-point"
                 })
+            },
+            logout() {
+                uni.showModal({
+                    title: '退出登陆',
+                    content: '您确定要退出登陆吗？',
+                    confirmText: '确认',
+                    confirmColor: '#f7b2b2',
+                    cancelText: '取消',
+                    cancelColor: '#555',
+                    success: (res) => {
+                        if (res.confirm) {
+                            console.log('用户点击确定');
+                            uni.setStorage({
+                                key: 'vuex',
+                                data: '',
+                                success: function() {
+                                    uni.reLaunch({
+                                        url: '/pages/account/login'
+                                    })
+                                }
+                            });
+                        }
+                    }
+                });
             }
         }
     }
