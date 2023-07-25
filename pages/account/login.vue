@@ -1,13 +1,36 @@
 <template>
     <view class="root">
-        <view class="login">
-            <u-button type="primary" @click="handleLineLogin"> line登陆</u-button>
-
-            <view>
-                <view>数量：{{count }}</view>
-                <button @click="addCount">增加</button>
+        <view class="logo">
+            <view class="vector">
+                <image src="../../static/images/vector.png" mode="aspectFit"></image>
             </view>
         </view>
+
+        <view class="header">
+            <view class="title">
+                <text>MY ETC</text>
+            </view>
+            <view class="sub-title">
+                <text>帮您快速掌握ETC账单信息</text>
+            </view>
+        </view>
+
+        <view class="login">
+            <u-button class="btn-login" type="primary" @click="handleLineLogin"> Line登陆</u-button>
+        </view>
+
+        <view class="footer">
+            <text class="content">By logging in our app, you agree to our
+                <text class="terms">
+                    Terms of Service
+                </text>
+                and
+                <text class="policy">
+                    Privacy policy
+                </text>
+            </text>
+        </view>
+    </view>
     </view>
 </template>
 
@@ -60,8 +83,72 @@
 
 <style lang="scss" scoped>
     .root {
+        .logo {
+            padding: 160rpx 0;
+            color: #666;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            image {
+                width: 476rpx;
+            }
+
+            .text {
+                font-size: 38rpx;
+                padding-top: 20rpx;
+            }
+        }
+
+        .header {
+            text-align: center;
+
+            .title {
+                font-size: 64rpx;
+                font-weight: 500;
+            }
+
+            .sub-title {
+                margin: 20rpx 0;
+                font-size: 32rpx;
+                color: #666;
+            }
+        }
+
         .login {
-            margin-top: 50rpx;
+            margin: 50rpx 80rpx;
+
+            .btn-login {
+                border-radius: 50rpx;
+                background: linear-gradient(#0fc160, #07c160);
+                border: none;
+            }
+        }
+
+        .footer {
+            margin-top: 20rpx;
+            text-align: center;
+
+            text {
+                font-size: 28rpx;
+            }
+
+            .content {
+                color: #666;
+                margin: 0 5rpx;
+            }
+
+            .terms,
+            .policy {
+                color: #7930F6;
+                margin: 0 5rpx;
+            }
+
+            .terms:hover,
+            .policy:hover {
+                text-decoration: underline;
+            }
         }
     }
 </style>
