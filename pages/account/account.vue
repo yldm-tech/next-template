@@ -13,6 +13,23 @@
                                 :threshold="[3600,99*365*24*60*60*1000]"></uni-dateformat>
                             注册
                         </view>
+
+                        <view class="bind-status">
+                            <view class="etc">
+                                <view class="title">
+                                    ETC:
+                                </view>
+                                <view class="status" :class="etcBind?'active':'inactive'">
+                                    {{etcBindShow}}
+                                </view>
+                            </view>
+                            <view class="point">
+                                <view class="title">积分:</view>
+                                <view class="status" :class="pointBind?'active':'inactive'">
+                                    {{pointBindShow}}
+                                </view>
+                            </view>
+                        </view>
                     </view>
                     <view class="text" v-else>
                         <view class="nickname">点击登录</view>
@@ -39,6 +56,16 @@
 
             <view class="list">
                 <view class="group">
+                    <view class="item" v-if="!etcBind" @click="goBindETC">
+                        <view class="left"><text class="iconfont icon-a-106-xihuan"></text><text
+                                class="text">绑定ETC</text></view>
+                        <view class="right"><text class="iconfont icon-a-10-you"></text></view>
+                    </view>
+                    <view class="item" v-if="!pointBind" @click="goBindPoint">
+                        <view class="left"><text class="iconfont icon-a-106-xihuan"></text><text
+                                class="text">绑定积分</text></view>
+                        <view class="right"><text class="iconfont icon-a-10-you"></text></view>
+                    </view>
                     <view class="item">
                         <view class="left"><text class="iconfont icon-a-24-bianji"></text><text class="text">激活订阅</text>
                         </view>
@@ -92,6 +119,20 @@
             };
         },
         computed: {
+            etcBind() {
+                const etcUsername = this.$store.state.user.etcUsername
+                return !!etcUsername
+            },
+            pointBind() {
+                const pointUserame = this.$store.state.user.pointUsername
+                return !!pointUserame
+            },
+            etcBindShow() {
+                return this.etcBind ? '己绑定' : '未绑定'
+            },
+            pointBindShow() {
+                return this.pointBind ? '己绑定' : '未绑定'
+            },
             count() {
                 return this.$store.state.count
             },
@@ -103,6 +144,17 @@
             goLogin() {
                 uni.navigateTo({
                     url: "/pages/account/login"
+                })
+            },
+            goBindETC() {
+                uni.navigateTo({
+                    url: "/pages/account/bind-etc"
+                })
+            },
+            goBindPoint() {
+                console.log('go bind etc...')
+                uni.navigateTo({
+                    url: "/pages/account/bind-point"
                 })
             }
         }
@@ -160,6 +212,54 @@
                             font-size: 26rpx;
                             opacity: 0.6;
                             padding-top: 5rpx;
+                        }
+
+                        .bind-status {
+                            padding-top: 50rpx;
+                            display: flex;
+                            justify-content: space-between;
+                            line-height: 50rpx;
+                            height: 50rpx;
+
+                            .etc {
+                                display: flex;
+                                line-height: 50rpx;
+                                height: 50rpx;
+                                justify-content: space-between;
+                                margin-right: 50rpx;
+
+                                .status {
+                                    font-size: 28rpx;
+                                }
+
+                                .title {
+                                    color: #e3e3e3;
+                                    margin-right: 15rpx;
+                                }
+                            }
+
+                            .point {
+                                display: flex;
+                                justify-content: space-between;
+
+                                .title {
+                                    color: #e3e3e3;
+                                    margin-right: 15rpx;
+                                }
+
+                                .status {
+                                    font-size: 28rpx;
+
+                                }
+                            }
+
+                            .active {
+                                color: green;
+                            }
+
+                            .inactive {
+                                color: red;
+                            }
                         }
                     }
                 }

@@ -12,6 +12,23 @@
                 "enablePullDownRefresh": false
             }
 
+
+        }, {
+            "path": "pages/account/bind-etc",
+            "style": {
+                "navigationBarTitleText": "绑定ETC账号",
+                "enablePullDownRefresh": false
+            }
+
+
+        }, {
+            "path": "pages/account/bind-point",
+            "style": {
+                "navigationBarTitleText": "绑定积分账号",
+                "enablePullDownRefresh": false
+            }
+
+
         }, {
             "path": "pages/account/login",
             "style": {
