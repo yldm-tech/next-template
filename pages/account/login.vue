@@ -92,7 +92,7 @@
             align-items: center;
 
             image {
-                width: 476rpx;
+                width: 400rpx;
             }
 
             .text {
