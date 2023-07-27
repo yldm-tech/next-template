@@ -121,7 +121,6 @@
                 return !!etcUsername
             },
             pointBind() {
-                console.log(this.$store.state.user);
                 const pointUsername = this.$store.state.user.pointUsername
                 return !!pointUsername
             },

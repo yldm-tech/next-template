@@ -62,7 +62,7 @@ const store = new Vuex.Store({
             } = params
             return await uni.request({
                 method: 'POST',
-                url: `${baseUrl}/user/etc`,
+                url: `${baseUrl}/myetc/bind/etc`,
                 data: model,
                 header: {
                     "x-auth-token": token
@@ -79,7 +79,7 @@ const store = new Vuex.Store({
             } = params
             return await uni.request({
                 method: 'POST',
-                url: `${baseUrl}/user/point`,
+                url: `${baseUrl}/myetc/bind/point`,
                 data: model,
                 header: {
                     "x-auth-token": token
@@ -106,7 +106,22 @@ const store = new Vuex.Store({
                 commit('updateUser', user);
             }
             return user;
-        }
+        },
+        async getPoints({
+            commit
+        }, params) {
+            const {
+                baseUrl,
+                token
+            } = params
+            return await uni.request({
+                method: 'GET',
+                url: `${baseUrl}/myetc/point`,
+                header: {
+                    "x-auth-token": token
+                }
+            })
+        },
     }
 })
 

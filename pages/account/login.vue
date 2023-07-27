@@ -127,8 +127,10 @@
         }
 
         .footer {
-            margin-top: 20rpx;
+            position: fixed;
+            bottom: 5%;
             text-align: center;
+            align-items: center;
 
             text {
                 font-size: 28rpx;

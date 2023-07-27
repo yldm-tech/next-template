@@ -107,7 +107,7 @@
         },
         computed: {
             token() {
-                return this.$store.state.user.token
+                return this.$store.state.user.token ?? ''
             },
             noData() {
                 return this.etcData && this.etcData.length === 0
@@ -124,7 +124,7 @@
             },
             async getData() {
                 const res = await uni.request({
-                    url: `${this.$env.BASE_URL}/etc`,
+                    url: `${this.$env.BASE_URL}/myetc/etc`,
                     data: {
                         year: this.currentYear,
                         pageNo: this.currentPage,
@@ -134,6 +134,15 @@
                         'x-auth-token': this.token
                     }
                 })
+
+                // 没有登陆自动跳转到登陆页面
+                if (res.data.code === 401) {
+                    uni.navigateTo({
+                        url: '/pages/account/login'
+                    })
+                    return;
+                }
+
                 const dataList = res.data.data.data;
                 if (dataList && dataList.length > 0) {
                     const etcData = Object.values(dataList.reduce((acc, curr) => {

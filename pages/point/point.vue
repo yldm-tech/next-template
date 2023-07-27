@@ -1,6 +1,10 @@
 <template>
     <view class="root">
-        <view class="item" :key="index" v-for="(item,index) in list">
+        <view class="loading" v-if="!list">
+            <u-skeleton rows="30" :loading="!list" title animate>
+            </u-skeleton>
+        </view>
+        <view v-else class="item" :key="index" v-for="(item,index) in list">
             <view class="left">
                 <view class="logo">
                     <image :src="item.image" mode="aspectFit"></image>
@@ -22,44 +26,42 @@
 </template>
 
 <script>
+    import {
+        mapActions
+    } from 'vuex';
     export default {
         data() {
             return {
-                list: [{
-                        image: '../../static/images/nexco.png',
-                        name: "東日本高速",
-                        point: 33
-                    }, {
-                        image: '../../static/images/nagoya.png',
-                        name: "名古屋高速",
-                        point: 3333
-                    }, {
-                        image: '../../static/images/aichi.png',
-                        name: "愛知高速",
-                        point: 0
-                    }, {
-                        image: '../../static/images/koube.png',
-                        name: "神戸高速",
-                        point: 50
-                    }, {
-                        image: '../../static/images/honyon.png',
-                        name: "本四高速",
-                        point: 24
-                    },
-                    {
-                        image: '../../static/images/hirojima.png',
-                        name: "広島高速",
-                        point: 220
-                    }, {
-                        image: '../../static/images/fokukita.png',
-                        name: "福岡北九州高速",
-                        point: 220
-                    },
-                ]
+                list: null,
             }
         },
+        computed: {
+            userInfo() {
+                return this.$store.state.user;
+            },
+            token() {
+                return this.userInfo.token;
+            }
+        },
+        onLoad() {
+            this.getData()
+        },
         methods: {
+            ...mapActions(['getPoints']),
+            async getData() {
+                const res = await this.getPoints({
+                    baseUrl: this.$env.BASE_URL,
+                    token: this.token
+                })
 
+                if (!res.data.data) {
+                    uni.showToast({
+                        title: 'get point fail'
+                    })
+                    return;
+                }
+                this.list = res.data.data;
+            }
         }
     }
 </script>
