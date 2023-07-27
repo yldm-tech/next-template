@@ -36,6 +36,9 @@
             }
         },
         computed: {
+            hasLogin() {
+                return !!this.userInfo.id;
+            },
             userInfo() {
                 return this.$store.state.user;
             },
@@ -49,6 +52,14 @@
         methods: {
             ...mapActions(['getPoints']),
             async getData() {
+
+                if (!this.hasLogin) {
+                    uni.reLaunch({
+                        url: '/pages/account/login'
+                    })
+                    return;
+                }
+
                 const res = await this.getPoints({
                     baseUrl: this.$env.BASE_URL,
                     token: this.token

@@ -122,6 +122,26 @@ const store = new Vuex.Store({
                 }
             })
         },
+        async getSummary({
+            commit
+        }, params) {
+            const {
+                baseUrl,
+                token,
+                type
+            } = params
+            console.log(baseUrl, token, type);
+            return await uni.request({
+                method: 'GET',
+                url: `${baseUrl}/myetc/summary`,
+                header: {
+                    "x-auth-token": token,
+                },
+                data: {
+                    type: type
+                }
+            })
+        },
     }
 })
 

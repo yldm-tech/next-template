@@ -18,128 +18,81 @@
             <view class="summary">
                 <view class="money-container">
                     <text class="summary-title">本年总支出</text>
-                    <text class="summary-amount">1235025 JPY</text>
+                    <text class="summary-amount">{{summary.amount}} JPY</text>
                 </view>
                 <view class="total-container">
                     <text class="summary-title">本年累计笔数</text>
-                    <text class="summary-amount">743笔</text>
+                    <text class="summary-amount">{{summary.count}}笔</text>
                 </view>
             </view>
         </view>
 
-        <column-chart :chartData="chartData"></column-chart>
-        <ring-chart :chartData="ringChartData">
-        </ring-chart>
-
+        <line-chart :chartData="summary.lineChartData" :opts="summary.lineOpts"></line-chart>
+        <ring-chart :chartData="summary.ringChartData" :opts="summary.ringOpts"></ring-chart>
 
     </view>
 </template>
 
 <script>
+    import {
+        mapState
+    } from 'vuex';
+    import {
+        mapMutations
+    } from 'vuex';
+    import {
+        mapActions
+    } from 'vuex';
+    import tabbar from '../../uni_modules/uview-ui/libs/config/props/tabbar';
     export default {
         data() {
             return {
                 tabs: [{
                     name: '本月',
+                    type: 'month',
                 }, {
                     name: '本年',
+                    type: 'year',
                 }, {
-                    name: '全部'
+                    name: '全部',
+                    type: 'all',
                 }],
-                chartData: {},
-                barChartData: {},
-                ringChartData: {},
+                item: {},
+                summary: {
+                    amount: 0,
+                    count: 0,
+                    lineChartData: {},
+                    ringChartData: {},
+                },
+
             }
         },
-        onReady() {
-            this.getServerData();
-            this.getRingServerData();
-            this.getBarServerData();
+        onLoad() {
+            this.item = this.tabs[0];
+            this.getData();
         },
-
+        computed: mapState(['user']),
         methods: {
+            ...mapActions(['getSummary']),
             click(item) {
-                console.log('item', item);
+                this.item = item;
+                this.getData();
             },
-            getRingServerData() {
-                setTimeout(() => {
-                    let res = {
-                        series: [{
-                            data: [{
-                                "name": "1月",
-                                "value": 50
-                            }, {
-                                "name": "2月",
-                                "value": 30
-                            }, {
-                                "name": "3月",
-                                "value": 20
-                            }, {
-                                "name": "4月",
-                                "value": 18
-                            }, {
-                                "name": "5月",
-                                "value": 8
-                            }, {
-                                "name": "6月",
-                                "value": 12
-                            }, {
-                                "name": "7月",
-                                "value": 50
-                            }, {
-                                "name": "8月",
-                                "value": 30
-                            }, {
-                                "name": "9月",
-                                "value": 20
-                            }, {
-                                "name": "10月",
-                                "value": 18
-                            }, {
-                                "name": "11月",
-                                "value": 8
-                            }, {
-                                "name": "12月",
-                                "value": 12
-                            }, ]
-                        }]
-                    };
-                    this.ringChartData = JSON.parse(JSON.stringify(res));
-                }, 1000);
-            },
-            getServerData() {
-                //模拟从服务器获取数据时的延时
-                setTimeout(() => {
-                    //模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
-                    let res = {
-                        categories: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
-                            "14",
-                            "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26",
-                            "27", "28", "29", "30"
-                        ],
-                        series: [{
-                            name: "成交量A",
-                            data: [20, 30, 25, 55, 30, 130, 20, 30, 25, 55, 30, 130, 20, 30, 25, 55,
-                                30, 130, 20, 30, 25, 55, 30, 130, 25, 55, 30, 130, 55, 30
-                            ]
-                        }]
-                    };
-                    this.chartData = JSON.parse(JSON.stringify(res));
-                }, 1000);
-            },
-            getBarServerData() {
-                //模拟从服务器获取数据时的延时
-                setTimeout(() => {
-                    //模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
-                    let res = {
-                        categories: ["2018", "2019", "2020", "2021", "2022", "2023"],
-                        series: [{
-                            name: "完成量",
-                            data: [18, 27, 21, 24, 6, 28]
-                        }]
-                    };
-                    this.barChartData = JSON.parse(JSON.stringify(res));
-                }, 500);
+            async getData() {
+                console.log(this.item.type);
+                const res = await this.getSummary({
+                    baseUrl: this.$env.BASE_URL,
+                    token: this.user.token,
+                    type: this.item.type || 'month'
+                })
+                if (!res.data.data) {
+                    uni.showToast({
+                        title: 'get summary fail...'
+                    })
+                    return;
+                }
+
+                this.summary = res.data.data;
             },
         }
     }
