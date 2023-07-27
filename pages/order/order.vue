@@ -99,6 +99,18 @@
             }
         },
         onLoad() {
+            if (!this.user.id) {
+                uni.reLaunch({
+                    url: "/pages/account/login"
+                })
+                return;
+            }
+            if (!this.user.etcUsername) {
+                uni.reLaunch({
+                    url: "/pages/account/bind-etc"
+                })
+                return;
+            }
             this.getData()
         },
         onReachBottom() {
@@ -106,6 +118,9 @@
             this.getData()
         },
         computed: {
+            user() {
+                return this.$store.state.user
+            },
             token() {
                 return this.$store.state.user.token ?? ''
             },

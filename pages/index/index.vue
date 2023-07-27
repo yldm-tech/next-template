@@ -10,7 +10,11 @@
                      height: 34px;
                      "></u-tabs>
         </view>
-        <view class="summary-container">
+        <view class="" v-if="!summary.amount">
+            <u-skeleton rows="30" :loading="!summary.amount" title animate>
+            </u-skeleton>
+        </view>
+        <view class="summary-container" v-else>
             <view class="title">支出概况</view>
             <view class="summary-devider">
             </view>
@@ -18,11 +22,11 @@
             <view class="summary">
                 <view class="money-container">
                     <text class="summary-title">本年总支出</text>
-                    <text class="summary-amount">{{summary.amount}} JPY</text>
+                    <text class="summary-amount">{{summary.amount || 0}} JPY</text>
                 </view>
                 <view class="total-container">
                     <text class="summary-title">本年累计笔数</text>
-                    <text class="summary-amount">{{summary.count}}笔</text>
+                    <text class="summary-amount">{{summary.count || 0}}笔</text>
                 </view>
             </view>
         </view>
@@ -59,8 +63,6 @@
                 }],
                 item: {},
                 summary: {
-                    amount: 0,
-                    count: 0,
                     lineChartData: {},
                     ringChartData: {},
                 },
@@ -68,6 +70,18 @@
             }
         },
         onLoad() {
+            if (!this.user.id) {
+                uni.reLaunch({
+                    url: "/pages/account/login"
+                })
+                return;
+            }
+            if (!this.user.etcUsername) {
+                uni.reLaunch({
+                    url: "/pages/account/bind-etc"
+                })
+                return;
+            }
             this.item = this.tabs[0];
             this.getData();
         },

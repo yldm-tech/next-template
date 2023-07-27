@@ -33,6 +33,6 @@ export function createApp() {
 
 // #ifdef H5
 // 提交前需要注释  本地调试使用
-const vconsole = require('vconsole')
-Vue.prototype.$vconsole = new vconsole() // 使用vconsole
+// const vconsole = require('vconsole')
+// Vue.prototype.$vconsole = new vconsole() // 使用vconsole
 // #endif
