@@ -33,16 +33,18 @@
                     url: "/pages/account/login"
                 })
             }
+            this.userModel.username = this.userInfo.pointUsername;
+            this.userModel.password = this.userInfo.pointPassword;
         },
         computed: {
             hasLogin() {
-                return !!this.userInfo.id
+                return !!this.userInfo.id;
             },
             userInfo() {
-                return this.$store.state.user
+                return this.$store.state.user;
             },
             token() {
-                return this.userInfo.token
+                return this.userInfo.token;
             }
         },
         methods: {

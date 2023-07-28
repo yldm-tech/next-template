@@ -53,12 +53,12 @@
 
             <view class="list">
                 <view class="group">
-                    <view class="item" v-if="!etcBind" @click="goBindETC">
+                    <view class="item" @click="goBindETC">
                         <view class="left"><text class="iconfont icon-a-106-xihuan"></text><text
                                 class="text">绑定ETC</text></view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
-                    <view class="item" v-if="!pointBind" @click="goBindPoint">
+                    <view class="item" @click="goBindPoint">
                         <view class="left"><text class="iconfont icon-a-106-xihuan"></text><text
                                 class="text">绑定积分</text></view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>

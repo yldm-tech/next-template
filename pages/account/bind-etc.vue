@@ -33,6 +33,8 @@
                     url: "/pages/account/login"
                 })
             }
+            this.userModel.username = this.userInfo.etcUsername;
+            this.userModel.password = this.userInfo.etcPassword;
         },
         computed: {
             hasLogin() {
