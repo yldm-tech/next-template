@@ -32,7 +32,7 @@
         </view>
 
         <line-chart :chartData="summary.lineChartData" :opts="summary.lineOpts"></line-chart>
-        <ring-chart :chartData="summary.ringChartData" :opts="summary.ringOpts"></ring-chart>
+        <ring-chart :chartData="summary.ringChartData" :barData="summary.barData" :opts="summary.ringOpts"></ring-chart>
 
     </view>
 </template>
@@ -65,6 +65,7 @@
                 summary: {
                     lineChartData: {},
                     ringChartData: {},
+                    barData: []
                 },
 
             }
@@ -124,7 +125,7 @@
         }
 
         .summary-container {
-            margin: 15rpx;
+            margin: 10rpx;
             padding: 30rpx;
             background-color: white;
             border-radius: 12rpx;

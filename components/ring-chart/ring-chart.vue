@@ -5,28 +5,24 @@
                 高速口统计
             </view>
             <qiun-data-charts type="ring" :opts="opts" :chartData="chartData" />
-            <view class="chart-item" :key="index" v-for="(item,index) in 5">
+            <view class="chart-item" :key="index" v-for="(item,index) in barData">
                 <view class="left">
                     <view class="title">
-                        王子北
+                        {{item.name}}
                     </view>
                     <view class="process">
-                        <u-line-progress :percentage="30" activeColor="#1890FF"></u-line-progress>
+                        <u-line-progress :percentage="(item.value/max*100).toFixed(0)" :showText="false" height="8"
+                            activeColor="#1890FF"></u-line-progress>
                     </view>
                 </view>
 
                 <view class="right">
                     <view class="left">
                         <view class="title">
-                            ¥ 1000
-                        </view>
-                        <view class="amount">
-                            共有10条记录
+                            ¥ {{item.value}}
                         </view>
                     </view>
-                    <view class="right">
-                        <text class="iconfont icon-a-10-you"></text>
-                    </view>
+
                 </view>
             </view>
         </u-skeleton>
@@ -39,16 +35,26 @@
         name: "ring-chart",
         props: {
             chartData: {},
+            barData: {
+                type: Array,
+                default: []
+            },
             opts: {}
+        },
+        computed: {
+            max() {
+                return this.barData.length > 1 ? this.barData[0].value : 0
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
     .charts-box {
-        margin: 15rpx;
+        margin: 10rpx;
         padding: 30rpx;
         background-color: white;
+        border-radius: 10rpx;
 
         .header {
             font-size: 35rpx;
@@ -63,10 +69,14 @@
             .left {
                 flex: 1;
                 margin: 0 10rpx;
+
+                .process {
+                    margin-top: 15rpx;
+                }
             }
 
             .right {
-                width: 210rpx;
+                width: 150rpx;
                 margin: 0 10rpx;
                 display: flex;
                 justify-content: space-between;

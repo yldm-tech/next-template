@@ -19,8 +19,9 @@
 <style scoped>
     /* 请根据实际需求修改父元素尺寸，组件自动识别宽高 */
     .charts-box {
-        width: 100%;
-        height: 300px;
+        margin: 10rpx;
+        padding: 30rpx;
         background-color: white;
+        border-radius: 10rpx;
     }
 </style>

@@ -83,11 +83,11 @@
 
 <style lang="scss" scoped>
     .root {
+
         .logo {
-            padding: 160rpx 0;
+            padding: 8% 0;
             color: #666;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
 
@@ -128,7 +128,8 @@
 
         .footer {
             position: fixed;
-            bottom: 5%;
+            bottom: 20%;
+            margin-top: 20rpx;
             text-align: center;
             align-items: center;
 
