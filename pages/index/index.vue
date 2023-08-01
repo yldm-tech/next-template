@@ -52,11 +52,11 @@
         data() {
             return {
                 tabs: [{
-                    name: '本月',
-                    type: 'month',
+                    name: '今年',
+                    type: 'current',
                 }, {
-                    name: '本年',
-                    type: 'year',
+                    name: '去年',
+                    type: 'lastYear',
                 }, {
                     name: '全部',
                     type: 'all',
