@@ -11,23 +11,22 @@
                 <text>MY ETC</text>
             </view>
             <view class="sub-title">
-                <text>帮您快速掌握ETC账单信息</text>
+                <text>ETC請求書情報を迅速に把握する</text>
             </view>
         </view>
 
         <view class="login">
-            <u-button class="btn-login" type="primary" @click="handleLineLogin"> Line登陆</u-button>
+            <u-button class="btn-login" type="primary" @click="handleLineLogin"> Lineでログイン</u-button>
         </view>
 
         <view class="footer">
-            <text class="content">By logging in our app, you agree to our
+            <text class="content">当アプリにログインすることで、以下の
                 <text class="terms">
-                    Terms of Service
-                </text>
-                and
-                <text class="policy">
-                    Privacy policy
-                </text>
+                    利用規約
+                </text>と<text class="policy">
+                    プライバシーポリシー
+                </text>に同意するものとします。
+
             </text>
         </view>
     </view>
@@ -139,7 +138,7 @@
 
             .content {
                 color: #666;
-                margin: 0 5rpx;
+                margin: 0 50rpx;
             }
 
             .terms,

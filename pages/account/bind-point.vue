@@ -11,6 +11,8 @@
             <u-button :disabled="!userModel.username || !userModel.password" class="btn-submit"
                 @click="submit">提交</u-button>
         </u--form>
+        <view class="point-help" @click="goPointHelp">有疑问？查看帮助</view>
+
     </view>
 </template>
 
@@ -72,6 +74,11 @@
                         title: res.msg
                     })
                 }
+            },
+            goPointHelp() {
+                uni.navigateTo({
+                    url: '/pages/account/point-help'
+                })
             }
         }
     }

@@ -21,7 +21,6 @@ const store = new Vuex.Store({
             state.count += n
         },
         updateUser(state, payload) {
-            console.log(payload);
             state.user = payload;
         }
     },
@@ -130,7 +129,6 @@ const store = new Vuex.Store({
                 token,
                 type
             } = params
-            console.log(baseUrl, token, type);
             return await uni.request({
                 method: 'GET',
                 url: `${baseUrl}/myetc/summary`,

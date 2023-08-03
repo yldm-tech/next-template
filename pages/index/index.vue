@@ -15,18 +15,21 @@
             </u-skeleton>
         </view>
         <view class="summary-container" v-else>
-            <view class="title">支出概况</view>
+            <view class="title">支出概况
+                <text v-if="!this.user.id">(サンプルデータ)</text>
+                <text v-if="this.user">{{this.user.username ==='demo'?'(サンプルデータ)':''}}</text>
+            </view>
             <view class="summary-devider">
             </view>
 
             <view class="summary">
                 <view class="money-container">
-                    <text class="summary-title">本年总支出</text>
+                    <text class="summary-title">総支出</text>
                     <text class="summary-amount">{{summary.amount || 0}} JPY</text>
                 </view>
                 <view class="total-container">
-                    <text class="summary-title">本年累计笔数</text>
-                    <text class="summary-amount">{{summary.count || 0}}笔</text>
+                    <text class="summary-title">累計件数</text>
+                    <text class="summary-amount">{{summary.count || 0}}件</text>
                 </view>
             </view>
         </view>
@@ -58,7 +61,7 @@
                     name: '去年',
                     type: 'lastYear',
                 }, {
-                    name: '全部',
+                    name: 'すべて',
                     type: 'all',
                 }],
                 item: {},
@@ -71,18 +74,6 @@
             }
         },
         onLoad() {
-            if (!this.user.id) {
-                uni.reLaunch({
-                    url: "/pages/account/login"
-                })
-                return;
-            }
-            if (!this.user.etcUsername) {
-                uni.reLaunch({
-                    url: "/pages/account/bind-etc"
-                })
-                return;
-            }
             this.item = this.tabs[0];
             this.getData();
         },

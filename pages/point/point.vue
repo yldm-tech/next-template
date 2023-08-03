@@ -13,7 +13,7 @@
             </view>
             <view class="right">
                 <view class="name">
-                    当前积分
+                    ポイント
                 </view>
                 <view class="point">
                     {{item.point}}
@@ -36,9 +36,6 @@
             }
         },
         computed: {
-            hasLogin() {
-                return !!this.userInfo.id;
-            },
             userInfo() {
                 return this.$store.state.user;
             },
@@ -47,19 +44,11 @@
             }
         },
         onLoad() {
-            this.getData()
+            this.getData();
         },
         methods: {
             ...mapActions(['getPoints']),
             async getData() {
-
-                if (!this.hasLogin) {
-                    uni.reLaunch({
-                        url: '/pages/account/login'
-                    })
-                    return;
-                }
-
                 const res = await this.getPoints({
                     baseUrl: this.$env.BASE_URL,
                     token: this.token

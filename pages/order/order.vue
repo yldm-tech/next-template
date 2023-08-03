@@ -20,7 +20,7 @@
         </view>
 
         <view v-else-if="noData" class="items" style="height: 100vh;">
-            暂无数据
+            データがありません
         </view>
 
         <view v-else class="items" :key="index" v-for="(etc,index) in etcData">
@@ -60,7 +60,7 @@
 
                     <view class="item-amount">
                         <text class="amount">
-                            价格：¥ {{item.totalPrice}}
+                            金額：¥ {{item.totalPrice}}
                         </text>
                     </view>
                 </view>
@@ -99,19 +99,7 @@
             }
         },
         onLoad() {
-            if (!this.user.id) {
-                uni.reLaunch({
-                    url: "/pages/account/login"
-                })
-                return;
-            }
-            if (!this.user.etcUsername) {
-                uni.reLaunch({
-                    url: "/pages/account/bind-etc"
-                })
-                return;
-            }
-            this.getData()
+            this.getData();
         },
         onReachBottom() {
             this.currentPage += 1
@@ -177,7 +165,8 @@
                 } else {
                     if (this.currentPage > 1) {
                         uni.showToast({
-                            title: 'no more data'
+                            icon: 'none',
+                            title: 'これ以上のデータはありません'
                         })
                     } else {
                         this.etcData = [];
@@ -218,10 +207,10 @@
                     flex-direction: row;
                     justify-content: space-between;
                     border-bottom: 1rpx solid #f6f6f6f;
-                    height: 60rpx;
-                    line-height: 60rpx;
 
                     .left {
+                        display: flex;
+                        align-items: center;
                         min-width: 300rpx;
 
                         text {
@@ -259,6 +248,8 @@
 
                     .left {
                         min-width: 300rpx;
+                        display: flex;
+                        align-items: center;
 
                         text {
                             margin-right: 30rpx;

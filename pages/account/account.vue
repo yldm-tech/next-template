@@ -7,11 +7,11 @@
                         <image :src="user.picture || '../../static/images/user-default.jpg'" mode="aspectFill"></image>
                     </view>
                     <view class="text" v-if="user.id">
-                        <view class="nickname">{{user.name || "匿名用户"}}</view>
+                        <view class="nickname">{{user.name || "匿名ユーザー"}}</view>
                         <view class="year">
                             <uni-dateformat :date="user.createdAt"
                                 :threshold="[3600,99*365*24*60*60*1000]"></uni-dateformat>
-                            注册
+                            登録
                         </view>
 
                         <view class="bind-status">
@@ -24,7 +24,7 @@
                                 </view>
                             </view>
                             <view class="point">
-                                <view class="title">积分:</view>
+                                <view class="title">ポイント:</view>
                                 <view class="status" :class="pointBind?'active':'inactive'">
                                     {{pointBindShow}}
                                 </view>
@@ -32,7 +32,7 @@
                         </view>
                     </view>
                     <view class="text" v-else>
-                        <view class="nickname">点击登录</view>
+                        <view class="nickname">ログイン</view>
                     </view>
 
                 </view>
@@ -48,42 +48,39 @@
 
         <view class="main">
             <view class="info">
-                <view class="item">设置</view>
+                <view class="item">設定</view>
             </view>
 
             <view class="list">
                 <view class="group">
                     <view class="item" @click="goBindETC">
                         <view class="left"><text class="iconfont icon-a-106-xihuan"></text><text
-                                class="text">绑定ETC</text></view>
+                                class="text">{{this.etcBind?'ETC連携更新':'ETC連携'}}</text></view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
                     <view class="item" @click="goBindPoint">
                         <view class="left"><text class="iconfont icon-a-106-xihuan"></text><text
-                                class="text">绑定积分</text></view>
+                                class="text">{{this.pointBind?'ポイント連携更新':'ポイント連携'}}</text></view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
                     <view class="item">
-                        <view class="left"><text class="iconfont icon-a-24-bianji"></text><text class="text">激活订阅</text>
+                        <view class="left"><text class="iconfont icon-a-24-bianji"></text><text
+                                class="text">サブスクリプション</text>
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
                     <view class="item">
-                        <view class="left"><text class="iconfont icon-a-106-xihuan"></text><text
-                                class="text">语言选择</text></view>
-                        <view class="right"><text class="iconfont icon-a-10-you"></text></view>
-                    </view>
-                    <view class="item">
-                        <view class="left"><text class="iconfont icon-a-21-xiugai"></text><text class="text">用户反馈</text>
+                        <view class="left"><text class="iconfont icon-a-21-xiugai"></text><text
+                                class="text">フィードバック</text>
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
                 </view>
 
-                <view class="group">
-                    <view class="item">
+                <!--                <view class="group">
+                    <view class="item" @click="goTwitter">
                         <view class="left"><text class="iconfont icon-a-32-wenjian"></text><text
-                                class="text">Twitter</text>
+                                class="text">开发者Twitter</text>
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
@@ -92,11 +89,12 @@
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
-                </view>
+                </view> -->
 
                 <view class="group" @click="logout">
                     <view class="item">
-                        <view class="left"><text class="iconfont icon-a-73-tuichu"></text><text class="text">退出登录</text>
+                        <view class="left"><text class="iconfont icon-a-73-tuichu"></text><text
+                                class="text">ログアウト</text>
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
@@ -125,10 +123,10 @@
                 return !!pointUsername
             },
             etcBindShow() {
-                return this.etcBind ? '己绑定' : '未绑定'
+                return this.etcBind ? '連携済み' : '未連携'
             },
             pointBindShow() {
-                return this.pointBind ? '己绑定' : '未绑定'
+                return this.pointBind ? '連携済み' : '未連携'
             },
             count() {
                 return this.$store.state.count
@@ -149,42 +147,67 @@
                     url: "/pages/account/login"
                 })
             },
-            goBindETC() {
-                uni.navigateTo({
-                    url: "/pages/account/bind-etc"
-                })
-            },
-            goBindPoint() {
-                console.log('go bind etc...')
-                uni.navigateTo({
-                    url: "/pages/account/bind-point"
-                })
-            },
-            logout() {
-                uni.showModal({
-                    title: '退出登陆',
-                    content: '您确定要退出登陆吗？',
-                    confirmText: '确认',
-                    confirmColor: '#f7b2b2',
-                    cancelText: '取消',
-                    cancelColor: '#555',
-                    success: (res) => {
-                        if (res.confirm) {
-                            console.log('用户点击确定');
-                            uni.setStorage({
-                                key: 'vuex',
-                                data: '',
-                                success: function() {
-                                    uni.reLaunch({
-                                        url: '/pages/account/login'
-                                    })
-                                }
-                            });
+            goTwitter() {
+                // #ifdef APP
+                if (plus.os.name == 'Android') {
+                    plus.runtime.launchApplication({
+                        pname: 'twitter://user?screen_name=xiaomoinfo',
+                        extra: {
+                            'url': 'https://twitter.com/xiaomoinfo'
                         }
-                    }
-                });
+                    }, function(e) {
+                        console.log('Open Twitter failed: ' + e.message);
+                    });
+                } else if (plus.os.name == 'iOS') {
+                    plus.runtime.launchApplication({
+                        action: 'twitter://xiaomoinfo'
+                    }, function(e) {
+                        console.log('Open system default browser failed: ' + e.message);
+                    });
+                }
+
             }
+            // #endif
+
+            // #ifdef H5
+            window.open('https://twitter.com/xiaomoinfo')
+            // #endif
+        },
+        goBindETC() {
+            uni.navigateTo({
+                url: "/pages/account/bind-etc"
+            })
+        },
+        goBindPoint() {
+            console.log('go bind etc...')
+            uni.navigateTo({
+                url: "/pages/account/bind-point"
+            })
+        },
+        logout() {
+            uni.showModal({
+                title: 'ログアウト',
+                content: 'ログアウトしてもよろしいですか？',
+                confirmText: '確認する',
+                confirmColor: '#f7b2b2',
+                cancelText: 'キャンセル',
+                cancelColor: '#555',
+                success: (res) => {
+                    if (res.confirm) {
+                        uni.setStorage({
+                            key: 'vuex',
+                            data: '',
+                            success: function() {
+                                uni.reLaunch({
+                                    url: '/pages/account/login'
+                                })
+                            }
+                        });
+                    }
+                }
+            });
         }
+    }
     }
 </script>
 

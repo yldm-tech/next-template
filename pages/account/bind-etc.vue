@@ -11,6 +11,8 @@
             <u-button :disabled="!userModel.username || !userModel.password" class="btn-submit"
                 @click="submit">提交</u-button>
         </u--form>
+        <view class="etc-help" @click="goEtcHelp">有疑问？查看帮助</view>
+
     </view>
 </template>
 
@@ -72,6 +74,11 @@
                         title: res.msg
                     })
                 }
+            },
+            goEtcHelp() {
+                uni.navigateTo({
+                    url: '/pages/account/etc-help'
+                })
             }
         }
     }
@@ -85,6 +92,15 @@
             margin-top: 200rpx;
             color: #fff;
             background-color: #7c37ef;
+        }
+
+        .etc-help {
+            margin-top: 20rpx;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
         }
     }
 </style>

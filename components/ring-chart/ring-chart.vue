@@ -2,7 +2,7 @@
     <view class="charts-box">
         <u-skeleton rows="6" :loading="!chartData.series" title animate>
             <view class="header">
-                高速口统计
+                通行統計
             </view>
             <qiun-data-charts type="ring" :opts="opts" :chartData="chartData" />
             <view class="chart-item" :key="index" v-for="(item,index) in barData">

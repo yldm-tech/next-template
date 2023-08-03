@@ -8,7 +8,7 @@
         }, {
             "path": "pages/account/account",
             "style": {
-                "navigationBarTitleText": "我的",
+                "navigationBarTitleText": "ユーザ",
                 "enablePullDownRefresh": false
             }
 
@@ -16,7 +16,7 @@
         }, {
             "path": "pages/account/bind-etc",
             "style": {
-                "navigationBarTitleText": "绑定ETC账号",
+                "navigationBarTitleText": "ETCバインディング",
                 "enablePullDownRefresh": false
             }
 
@@ -24,7 +24,7 @@
         }, {
             "path": "pages/account/bind-point",
             "style": {
-                "navigationBarTitleText": "绑定积分账号",
+                "navigationBarTitleText": "ポイントバインディング",
                 "enablePullDownRefresh": false
             }
 
@@ -32,28 +32,35 @@
         }, {
             "path": "pages/account/login",
             "style": {
-                "navigationBarTitleText": "登陆",
-                "enablePullDownRefresh": false
-            }
-
-        }, {
-            "path": "pages/account/bind-etc",
-            "style": {
-                "navigationBarTitleText": "绑定ETC账号",
+                "navigationBarTitleText": "ログイン",
                 "enablePullDownRefresh": false
             }
 
         }, {
             "path": "pages/order/order",
             "style": {
-                "navigationBarTitleText": "账单",
+                "navigationBarTitleText": "請求書",
                 "enablePullDownRefresh": false
             }
 
         }, {
             "path": "pages/point/point",
             "style": {
-                "navigationBarTitleText": "积分",
+                "navigationBarTitleText": "ポイント",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/account/etc-help",
+            "style": {
+                "navigationBarTitleText": "ETCヘルプ",
+                "enablePullDownRefresh": false
+            }
+
+        }, {
+            "path": "pages/account/point-help",
+            "style": {
+                "navigationBarTitleText": "ポイントヘルプ",
                 "enablePullDownRefresh": false
             }
 
@@ -74,25 +81,25 @@
                 "pagePath": "pages/index/index",
                 "iconPath": "static/images/shouye-xianxing.png",
                 "selectedIconPath": "static/images/shouye.png",
-                "text": "首页"
+                "text": "ホーム"
             },
             {
                 "pagePath": "pages/order/order",
                 "iconPath": "static/images/zhangdan-xianxing.png",
                 "selectedIconPath": "static/images/zhangdan.png",
-                "text": "账单"
+                "text": "請求書"
             },
             {
                 "pagePath": "pages/point/point",
                 "iconPath": "static/images/jifen-xianxing.png",
                 "selectedIconPath": "static/images/jifen.png",
-                "text": "积分"
+                "text": "ポイント"
             },
             {
                 "pagePath": "pages/account/account",
                 "iconPath": "static/images/yonghu-xianxing.png",
                 "selectedIconPath": "static/images/yonghu.png",
-                "text": "用户"
+                "text": "ユーザ"
             }
         ]
     }
