@@ -17,7 +17,7 @@
                         <view class="bind-status">
                             <view class="etc">
                                 <view class="title">
-                                    ETC:
+                                    ＥＴＣ:
                                 </view>
                                 <view class="status" :class="etcBind?'active':'inactive'">
                                     {{etcBindShow}}
@@ -40,7 +40,7 @@
             </view>
 
             <view class="bg">
-                <image :src="user.picture || '../../static/images/user-default.jpg'" mode="aspectFill"></image>
+                <image :src="'../../static/images/user-default.jpg'" mode="aspectFill"></image>
             </view>
         </view>
 
@@ -54,24 +54,30 @@
             <view class="list">
                 <view class="group">
                     <view class="item" @click="goBindETC">
-                        <view class="left"><text class="iconfont icon-a-106-xihuan"></text><text
-                                class="text">{{this.etcBind?'ETC連携更新':'ETC連携'}}</text></view>
+                        <view class="left"><text class="iconfont icon-a-109-linggan"></text><text
+                                class="text">{{this.etcBind?'ＥＴＣ明細連携更新':'ＥＴＣ明細連携'}}</text></view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
                     <view class="item" @click="goBindPoint">
-                        <view class="left"><text class="iconfont icon-a-106-xihuan"></text><text
+                        <view class="left"><text class="iconfont icon-a-125-lianjie"></text><text
                                 class="text">{{this.pointBind?'ポイント連携更新':'ポイント連携'}}</text></view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
-                    <view class="item">
+                    <!--                    <view class="item">
                         <view class="left"><text class="iconfont icon-a-24-bianji"></text><text
                                 class="text">サブスクリプション</text>
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
-                    </view>
-                    <view class="item">
+                    </view> -->
+                    <view class="item" @click="goFeedback">
                         <view class="left"><text class="iconfont icon-a-21-xiugai"></text><text
                                 class="text">フィードバック</text>
+                        </view>
+                        <view class="right"><text class="iconfont icon-a-10-you"></text></view>
+                    </view>
+                    <view class="item" @click="logout">
+                        <view class="left"><text class="iconfont icon-a-73-tuichu"></text><text
+                                class="text">ログアウト</text>
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
@@ -91,14 +97,6 @@
                     </view>
                 </view> -->
 
-                <view class="group" @click="logout">
-                    <view class="item">
-                        <view class="left"><text class="iconfont icon-a-73-tuichu"></text><text
-                                class="text">ログアウト</text>
-                        </view>
-                        <view class="right"><text class="iconfont icon-a-10-you"></text></view>
-                    </view>
-                </view>
             </view>
         </view>
 
@@ -184,6 +182,11 @@
                 url: "/pages/account/bind-point"
             })
         },
+        goFeedback() {
+            uni.navigateTo({
+                url: '/pages/account/feedback'
+            })
+        },
         logout() {
             uni.showModal({
                 title: 'ログアウト',
@@ -260,7 +263,6 @@
 
                         .year {
                             font-size: 26rpx;
-                            opacity: 0.6;
                             padding-top: 5rpx;
                         }
 
@@ -279,12 +281,13 @@
                                 margin-right: 50rpx;
 
                                 .status {
-                                    font-size: 28rpx;
+                                    font-size: 32rpx;
                                 }
 
                                 .title {
-                                    color: #e3e3e3;
+                                    color: white;
                                     margin-right: 15rpx;
+                                    font-size: 24rpx;
                                 }
                             }
 
@@ -293,18 +296,19 @@
                                 justify-content: space-between;
 
                                 .title {
-                                    color: #e3e3e3;
+                                    color: white;
                                     margin-right: 15rpx;
+                                    font-size: 24rpx;
                                 }
 
                                 .status {
-                                    font-size: 28rpx;
+                                    font-size: 32rpx;
 
                                 }
                             }
 
                             .active {
-                                color: green;
+                                color: white;
                             }
 
                             .inactive {
@@ -355,7 +359,9 @@
 
                 .item {
                     padding-right: 20rpx;
-                    color: #888;
+                    margin-left: 30rpx;
+                    color: #000;
+                    font-size: 32rpx;
 
                     text {
                         font-weight: 600;
@@ -373,17 +379,22 @@
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        padding: 25rpx 0;
+                        padding: 25rpx 30rpx;
                         font-size: 28rpx;
-                        color: #555;
-                        border-bottom: 1rpx solid #f8f8f8;
+                        height: 80rpx;
+                        color: #000;
+                        border-bottom: 1rpx solid #EBEBEB;
 
                         .left {
                             display: flex;
                             align-items: center;
 
+                            .text {
+                                margin-left: 40rpx;
+                            }
+
                             .iconfont {
-                                font-size: 38rpx;
+                                font-size: 50rpx;
                                 margin-right: 10rpx;
                             }
                         }

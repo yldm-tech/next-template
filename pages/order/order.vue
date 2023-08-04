@@ -59,19 +59,18 @@
                     </view>
 
                     <view class="item-amount">
-                        <text class="amount">
-                            金額：¥ {{item.totalPrice}}
+                        <text class="left">
+                            金額 <text class="translation">Total</text>
+                        </text>
+                        <text class="right">
+                            <text class="paid-price">¥ {{item.paidPrice}}</text>
+                            <text class="total-price"
+                                v-if="item.paidPrice !==item.totalPrice">¥{{item.totalPrice}}</text>
                         </text>
                     </view>
                 </view>
 
-                <!--   <view class="item-footer">
-                    <view class="left">
-                        <text>合计 </text>
-                        <text class="title">Total price</text>
-                    </view>
-                    <text>¥ 640</text>
-                </view> -->
+
             </view>
 
         </view>
@@ -200,6 +199,7 @@
             .item-content {
                 display: flex;
                 flex-direction: column;
+                margin-bottom: 20rpx;
 
                 .item-in {
                     display: flex;
@@ -283,10 +283,31 @@
                 }
 
                 .item-amount {
-                    text-align: right;
-                    padding-bottom: 20rpx;
-                    border-bottom: 1rpx dotted #999;
-                    margin-bottom: 50rpx;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 20rpx 30rpx;
+                    background-color: #F9F9F9;
+                    border-radius: 10rpx;
+                    margin: 30rpx 0;
+
+
+                    .left {
+                        .translation {
+                            margin-left: 60rpx;
+                            color: #999999;
+                        }
+                    }
+
+                    .right {
+                        .total-price {
+                            margin-left: 10rpx;
+                            text-decoration: line-through;
+                            color: #999999;
+                            font-size: 18rpx;
+                        }
+
+                        .paid-price {}
+                    }
 
                     text {
                         font-weight: 500;

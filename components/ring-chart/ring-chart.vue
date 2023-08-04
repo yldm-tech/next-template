@@ -11,6 +11,8 @@
                         {{item.name}}
                     </view>
                     <view class="process">
+                        <!-- <u-line-progress :percentage="(item.value/max*100).toFixed(0)" :showText="false" height="8"
+                            :activeColor="colors[index]"></u-line-progress> -->
                         <u-line-progress :percentage="(item.value/max*100).toFixed(0)" :showText="false" height="8"
                             activeColor="#1890FF"></u-line-progress>
                     </view>
@@ -42,6 +44,9 @@
             opts: {}
         },
         computed: {
+            colors() {
+                return this.opts.color;
+            },
             max() {
                 return this.barData.length > 1 ? this.barData[0].value : 0
             }

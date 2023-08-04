@@ -64,6 +64,13 @@
                 "enablePullDownRefresh": false
             }
 
+        }, {
+            "path": "pages/account/feedback",
+            "style": {
+                "navigationBarTitleText": "フェードバック",
+                "enablePullDownRefresh": false
+            }
+
         }
     ],
     "globalStyle": {
