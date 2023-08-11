@@ -16,7 +16,7 @@
         </view>
         <view class="summary-container" v-else>
             <view class="title">支出概况
-                <text v-if="!this.user.id">(サンプルデータ)</text>
+                <text v-if="!this.user.etcUsername">(サンプルデータ)</text>
                 <text v-if="this.user">{{this.user.username ==='demo'?'(サンプルデータ)':''}}</text>
             </view>
             <view class="summary-devider">

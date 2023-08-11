@@ -2,16 +2,16 @@
     <view class="root">
         <u--form labelPosition="left" :model="userModel" ref="uForm">
             <u-form-item class="username" label="" prop="userModel.username" borderBottom ref="item1">
-                <u--input v-model="userModel.username" placeholder='请输入用户名' border="none"></u--input>
+                <u--input v-model="userModel.username" placeholder='ユーザー名' border="none"></u--input>
             </u-form-item>
             <u-form-item class="password" label="" prop="userModel.password" borderBottom ref="item1">
-                <u--input password v-model="userModel.password" placeholder='请输入密码' border="none"></u--input>
+                <u--input password v-model="userModel.password" placeholder='パスワード' border="none"></u--input>
             </u-form-item>
 
             <u-button :disabled="!userModel.username || !userModel.password" class="btn-submit"
-                @click="submit">提交</u-button>
+                @click="submit">確認</u-button>
         </u--form>
-        <view class="etc-help" @click="goEtcHelp">有疑问？查看帮助</view>
+        <view class="etc-help" @click="goEtcHelp">質問があります？ヘルプを見る</view>
 
     </view>
 </template>
@@ -95,7 +95,7 @@
         }
 
         .etc-help {
-            margin-top: 20rpx;
+            margin-top: 30rpx;
 
             &:hover {
                 cursor: pointer;

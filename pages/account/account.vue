@@ -14,7 +14,7 @@
                             登録
                         </view>
 
-                        <view class="bind-status">
+                        <!-- <view class="bind-status">
                             <view class="etc">
                                 <view class="title">
                                     ＥＴＣ:
@@ -29,7 +29,7 @@
                                     {{pointBindShow}}
                                 </view>
                             </view>
-                        </view>
+                        </view> -->
                     </view>
                     <view class="text" v-else>
                         <view class="nickname">ログイン</view>
@@ -55,13 +55,21 @@
                 <view class="group">
                     <view class="item" @click="goBindETC">
                         <view class="left"><text class="iconfont icon-a-109-linggan"></text><text
-                                class="text">{{this.etcBind?'ＥＴＣ明細連携更新':'ＥＴＣ明細連携'}}</text></view>
-                        <view class="right"><text class="iconfont icon-a-10-you"></text></view>
+                                class="text">ＥＴＣ連携</text></view>
+                        <view class="right">
+                            <text class="text">{{this.etcBind?'更新':'連携'}}</text>
+                            <text class="iconfont icon-a-10-you">
+                            </text>
+                        </view>
                     </view>
                     <view class="item" @click="goBindPoint">
                         <view class="left"><text class="iconfont icon-a-125-lianjie"></text><text
-                                class="text">{{this.pointBind?'ポイント連携更新':'ポイント連携'}}</text></view>
-                        <view class="right"><text class="iconfont icon-a-10-you"></text></view>
+                                class="text">ポイント連携</text></view>
+                        <view class="right">
+                            <text class="text">{{this.pointBind?'更新':'連携'}}</text>
+                            <text class="iconfont icon-a-10-you">
+                            </text>
+                        </view>
                     </view>
                     <!--                    <view class="item">
                         <view class="left"><text class="iconfont icon-a-24-bianji"></text><text
@@ -75,7 +83,7 @@
                         </view>
                         <view class="right"><text class="iconfont icon-a-10-you"></text></view>
                     </view>
-                    <view class="item" @click="logout">
+                    <view class="item" @click="logout" 　v-if="hasLogin">
                         <view class="left"><text class="iconfont icon-a-73-tuichu"></text><text
                                 class="text">ログアウト</text>
                         </view>
@@ -192,7 +200,7 @@
                 title: 'ログアウト',
                 content: 'ログアウトしてもよろしいですか？',
                 confirmText: '確認する',
-                confirmColor: '#f7b2b2',
+                confirmColor: '#000',
                 cancelText: 'キャンセル',
                 cancelColor: '#555',
                 success: (res) => {
@@ -402,6 +410,10 @@
                         .right {
                             .iconfont {
                                 font-size: 26rpx;
+                            }
+
+                            .text {
+                                padding-right: 10rpx;
                             }
                         }
                     }
