@@ -16,8 +16,7 @@
         </view>
         <view class="summary-container" v-else>
             <view class="title">支出概况
-                <text v-if="!this.user.etcUsername">(サンプルデータ)</text>
-                <text v-if="this.user">{{this.user.username ==='demo'?'(サンプルデータ)':''}}</text>
+                <text class="sample-data" v-if="summary.fake">サンプルデータ</text>
             </view>
             <view class="summary-devider">
             </view>
@@ -128,6 +127,13 @@
                 font-size: 48rpx;
                 font-weight: bold;
                 border-bottom: 3rpx dotted #CCCCCC;
+
+                .sample-data {
+                    color: #999;
+                    font-size: 24rpx;
+                    margin-left: 20rpx;
+                    font-weight: normal;
+                }
             }
 
             .summary {

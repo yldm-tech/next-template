@@ -24,8 +24,10 @@
         </view>
 
         <view v-else class="items" :key="index" v-for="(etc,index) in etcData">
+
             <view class="date">
                 {{etc[0].entryMonth}}月{{etc[0].entryDay}}日
+                <text class="sample-data" v-if="fake">サンプルデータ</text>
             </view>
             <view class="item-container">
                 <view class="item-content" :key="index" v-for="(item,index) in etc">
@@ -94,7 +96,8 @@
                 pageSize: 20,
                 currentPage: 1,
                 currentYear: '2023',
-                etcData: null
+                etcData: null,
+                fake: false,
             }
         },
         onLoad() {
@@ -146,6 +149,7 @@
                 }
 
                 const dataList = res.data.data.data;
+                this.fake = res.data.data.fake;
                 if (dataList && dataList.length > 0) {
                     const etcData = Object.values(dataList.reduce((acc, curr) => {
                         const date = curr.entryDate;
@@ -190,6 +194,12 @@
             background-color: #ffffff;
             margin: 30rpx;
             padding: 30rpx;
+
+            .sample-data {
+                color: #999;
+                font-size: 24rpx;
+                margin-left: 20rpx;
+            }
 
             .date {
                 font-size: 36rpx;

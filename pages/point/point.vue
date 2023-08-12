@@ -33,6 +33,7 @@
         data() {
             return {
                 list: null,
+                fake: false,
             }
         },
         computed: {
@@ -60,7 +61,8 @@
                     })
                     return;
                 }
-                this.list = res.data.data;
+                this.list = res.data.data.data;
+                this.fake = res.data.data.fake;
             }
         }
     }

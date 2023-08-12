@@ -13,8 +13,8 @@
                     <view class="process">
                         <!-- <u-line-progress :percentage="(item.value/max*100).toFixed(0)" :showText="false" height="8"
                             :activeColor="colors[index]"></u-line-progress> -->
-                        <u-line-progress :percentage="(item.value/max*100).toFixed(0)" :showText="false" height="8"
-                            activeColor="#1890FF"></u-line-progress>
+                        <u-line-progress :percentage="(item.value/max*100).toFixed(0)" :showText="false" height="5"
+                            activeColor="#7C37EF"></u-line-progress>
                     </view>
                 </view>
 
