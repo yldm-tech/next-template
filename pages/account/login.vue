@@ -24,11 +24,11 @@
 
         <view class="footer">
             <text class="content">当アプリにログインすることで、以下の
-                <text class="terms">
+                <a class="terms">
                     利用規約
-                </text>と<text class="policy">
+                </a>と<a class="policy">
                     プライバシーポリシー
-                </text>に同意するものとします。
+                </a>に同意するものとします。
 
             </text>
         </view>

@@ -9,7 +9,7 @@
             </u-form-item>
 
             <u-button :disabled="!userModel.username || !userModel.password" class="btn-submit"
-                @click="submit">確認</u-button>
+                @click="submit">送信</u-button>
         </u--form>
         <view class="point-help" @click="goPointHelp">質問があります？ヘルプを見る</view>
 

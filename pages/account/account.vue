@@ -153,72 +153,72 @@
                     url: "/pages/account/login"
                 })
             },
-            goTwitter() {
-                // #ifdef APP
-                if (plus.os.name == 'Android') {
-                    plus.runtime.launchApplication({
-                        pname: 'twitter://user?screen_name=xiaomoinfo',
-                        extra: {
-                            'url': 'https://twitter.com/xiaomoinfo'
+            //     goTwitter() {
+            //         // #ifdef APP
+            //         if (plus.os.name == 'Android') {
+            //             plus.runtime.launchApplication({
+            //                 pname: 'twitter://user?screen_name=xiaomoinfo',
+            //                 extra: {
+            //                     'url': 'https://twitter.com/xiaomoinfo'
+            //                 }
+            //             }, function(e) {
+            //                 console.log('Open Twitter failed: ' + e.message);
+            //             });
+            //         } else if (plus.os.name == 'iOS') {
+            //             plus.runtime.launchApplication({
+            //                 action: 'twitter://xiaomoinfo'
+            //             }, function(e) {
+            //                 console.log('Open system default browser failed: ' + e.message);
+            //             });
+            //         }
+
+            //     }
+            //     // #endif
+
+            //     // #ifdef H5
+            //     window.open('https://twitter.com/xiaomoinfo')
+            //     // #endif
+            // },
+            goBindETC() {
+                uni.navigateTo({
+                    url: "/pages/account/bind-etc"
+                })
+            },
+            goBindPoint() {
+                console.log('go bind etc...')
+                uni.navigateTo({
+                    url: "/pages/account/bind-point"
+                })
+            },
+            goFeedback() {
+                uni.navigateTo({
+                    url: '/pages/account/feedback'
+                })
+            },
+            logout() {
+                uni.showModal({
+                    title: 'ログアウト',
+                    content: 'ログアウトしてもよろしいですか？',
+                    confirmText: '送信',
+                    confirmColor: '#000',
+                    cancelText: 'キャンセル',
+                    cancelColor: '#555',
+                    success: (res) => {
+                        if (res.confirm) {
+                            uni.setStorage({
+                                key: 'vuex',
+                                data: '',
+                                success: function() {
+                                    uni.reLaunch({
+                                        url: '/pages/account/login'
+                                    })
+                                }
+                            });
                         }
-                    }, function(e) {
-                        console.log('Open Twitter failed: ' + e.message);
-                    });
-                } else if (plus.os.name == 'iOS') {
-                    plus.runtime.launchApplication({
-                        action: 'twitter://xiaomoinfo'
-                    }, function(e) {
-                        console.log('Open system default browser failed: ' + e.message);
-                    });
-                }
-
-            }
-            // #endif
-
-            // #ifdef H5
-            window.open('https://twitter.com/xiaomoinfo')
-            // #endif
-        },
-        goBindETC() {
-            uni.navigateTo({
-                url: "/pages/account/bind-etc"
-            })
-        },
-        goBindPoint() {
-            console.log('go bind etc...')
-            uni.navigateTo({
-                url: "/pages/account/bind-point"
-            })
-        },
-        goFeedback() {
-            uni.navigateTo({
-                url: '/pages/account/feedback'
-            })
-        },
-        logout() {
-            uni.showModal({
-                title: 'ログアウト',
-                content: 'ログアウトしてもよろしいですか？',
-                confirmText: '確認する',
-                confirmColor: '#000',
-                cancelText: 'キャンセル',
-                cancelColor: '#555',
-                success: (res) => {
-                    if (res.confirm) {
-                        uni.setStorage({
-                            key: 'vuex',
-                            data: '',
-                            success: function() {
-                                uni.reLaunch({
-                                    url: '/pages/account/login'
-                                })
-                            }
-                        });
                     }
-                }
-            });
+                });
+            }
         }
-    }
     }
 </script>
 
