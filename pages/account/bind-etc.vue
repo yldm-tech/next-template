@@ -29,7 +29,7 @@
                 }
             }
         },
-        onLoad() {
+        onShow() {
             if (!this.hasLogin) {
                 uni.navigateTo({
                     url: "/pages/account/login"

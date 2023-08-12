@@ -55,6 +55,21 @@
                 ],
             }
         },
+        computed: {
+            user() {
+                return this.$store.state.user
+            },
+            hasLogin() {
+                return !!this.user.id
+            }
+        },
+        onShow() {
+            if (!this.hasLogin) {
+                uni.navigateTo({
+                    url: '/pages/account/login'
+                })
+            }
+        },
         methods: {
             radioClick(name, current) {
                 this.radios.map((item, index) => {

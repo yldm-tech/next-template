@@ -1,5 +1,8 @@
 <template>
     <view class="root">
+        <view text='スキップ' @click="skipLogin" class="skip-button">
+            スキップ
+        </view>
         <view class="logo">
             <view class="vector">
                 <image src="../../static/images/vector.png" mode="aspectFit"></image>
@@ -76,12 +79,28 @@
                     baseUrl
                 })
             },
+            async skipLogin() {
+                uni.reLaunch({
+                    url: '/pages/account/account'
+                })
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
     .root {
+        .skip-button {
+            width: 150rpx;
+            position: fixed;
+            top: 20rpx;
+            right: 10rpx;
+            color: #999;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
 
         .logo {
             padding: 8% 0;
@@ -128,7 +147,7 @@
         .footer {
             position: fixed;
             bottom: 20%;
-            margin-top: 20rpx;
+            margin: 0rpx 30rpx;
             text-align: center;
             align-items: center;
 
@@ -144,13 +163,13 @@
             .terms,
             .policy {
                 color: #7930F6;
-                margin: 0 5rpx;
+                margin: 5rpx;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
 
-            .terms:hover,
-            .policy:hover {
-                text-decoration: underline;
-            }
         }
     }
 </style>
