@@ -41,12 +41,8 @@
 
 <script>
     import {
-        mapState
-    } from 'vuex';
-    import {
-        mapMutations
-    } from 'vuex';
-    import {
+        mapState,
+        mapMutations,
         mapActions
     } from 'vuex';
     import tabbar from '../../uni_modules/uview-ui/libs/config/props/tabbar';
